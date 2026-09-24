@@ -61,7 +61,7 @@ Return HTTP 200:
 
 ## Running Tests
 ``` bash
-pytest
+python3 -m pytest
 ```
 
 ## Repository Structure
