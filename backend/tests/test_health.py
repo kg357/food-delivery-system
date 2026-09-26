@@ -6,3 +6,9 @@ client = TestClient(app);
 def test_health():
     response = client.get("/health")
     assert response.status_code == 200
+    assert response.json() == {"status": "OK"}
+
+def test_invalid_endpoint():
+    response = client.get("/does-not-exist")
+
+    assert response.status_code == 404
