@@ -96,7 +96,11 @@ food-delivery-system/
     |   |-- api/routes/       # HTTP route definitions
     |   |-- services/         # Business logic
     |   |-- repositories/     # Data access (reads from JSON)
-    |   |-- schemas/          # Pydantic models
+    |   |-- schemas/          # 
+    team agreement
+    ├   ├-- scrum/
+    │        └── team-agreement.md 
+    Pydantic models
     |   |-- core/             # Configuration (file paths)
     |   |-- main.py
     |-- data/                 # Representative JSON data
