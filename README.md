@@ -51,7 +51,7 @@ The application will start at:
 
 **GET `/health`**
 
-Return HTTP 200: 
+Return HTTP 200:
 
 ```json
 {
@@ -59,10 +59,31 @@ Return HTTP 200:
 }
 ```
 
+**GET `/restaurants`**
+
+Returns the list of representative restaurants, e.g.:
+
+```json
+[
+    {"id": 1, "name": "Wasabi Ramen", "cuisine": "Japanese", "rating": 4.5, "address": "123 Main St"}
+]
+```
+
+## API Documentation
+
+Interactive docs (Swagger UI) are available at:
+`http://127.0.0.1:8000/docs`
+
+## Representative Data
+
+Representative restaurant data lives at `backend/data/restaurants.json`.
+
 ## Running Tests
-``` bash
+```bash
 python3 -m pytest
 ```
+
+Covers the health endpoint, the restaurant-list endpoint, repository behavior (using isolated temporary test data, never the committed data file), and at least one invalid-data failure case.
 
 ## Repository Structure
 
@@ -72,9 +93,13 @@ food-delivery-system/
 |-- README.md
 |-- backend/
     |-- app/
-    |   |-- api/
-    |   |   |-- routes/
+    |   |-- api/routes/       # HTTP route definitions
+    |   |-- services/         # Business logic
+    |   |-- repositories/     # Data access (reads from JSON)
+    |   |-- schemas/          # Pydantic models
+    |   |-- core/             # Configuration (file paths)
     |   |-- main.py
+    |-- data/                 # Representative JSON data
     |-- tests/
     |-- requirements.txt
 ```
