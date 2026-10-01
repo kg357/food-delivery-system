@@ -90,6 +90,9 @@ Covers the health endpoint, the restaurant-list endpoint, repository behavior (u
 ```text
 food-delivery-system/
 |-- .gitignore
+├── .github/
+│   └── ISSUE_TEMPLATE/
+│       └── user_story.md
 |-- README.md
 |-- backend/
     |-- app/
