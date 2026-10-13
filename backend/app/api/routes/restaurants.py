@@ -8,7 +8,7 @@ router = APIRouter()
         "/restaurants", 
         response_model=list[Restaurant])
 def list_restaurants(
-    cuisine: str | None,
+    cuisine: str | None=None,
     min_rating: float | None = Query(
         default=None,
         ge=0,
