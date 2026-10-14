@@ -1,5 +1,26 @@
 [
-  {"id": 1, "name": "Wasabi Ramen", "cuisine": "Japanese", "rating": 4.5, "address": "123 Main St"},
-  {"id": 2, "name": "Bella Pasta", "cuisine": "Italian", "rating": 4.2, "address": "456 Oak Ave"},
-  {"id": 3, "name": "Spice Route", "cuisine": "Indian", "rating": 4.7, "address": "789 Pine Rd"}
+  {
+    "id": 1,
+    "owner_id": "owner1",
+    "name": "Wasabi Ramen",
+    "cuisine": "Japanese",
+    "rating": 4.5,
+    "address": "123 Main St"
+  },
+  {
+    "id": 2,
+    "owner_id": "owner2",
+    "name": "Bella Pasta",
+    "cuisine": "Italian",
+    "rating": 4.2,
+    "address": "456 Oak Ave"
+  },
+  {
+    "id": 3,
+    "owner_id": "owner3",
+    "name": "Spice Route",
+    "cuisine": "Indian",
+    "rating": 4.7,
+    "address": "789 Pine Rd"
+  }
 ]
