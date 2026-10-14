@@ -57,6 +57,36 @@ def test_invalid_restaurant_data_raises_validation_error():
     with pytest.raises(ValidationError):
         Restaurant(**bad_item)
 
+def test_filter_restaurants_by_cuisine():
+    response = client.get("/restaurants?cuisine=Italian")
+
+    assert response.status_code == 200
+
+    data = response.json()
+
+    assert len(data) == 1
+    assert data[0]["name"] == "Bella Pasta"
+
+def test_filter_restaurants_by_min_rating():
+    response = client.get("/restaurants?min_rating=4.5")
+
+    assert response.status_code == 200
+
+    data = response.json()
+
+    assert len(data) == 2
+
+    names = [restaurant["name"] for restaurant in data]
+
+    assert "Wasabi Ramen" in names
+    assert "Spice Route" in names
+
+
+def test_filter_returns_empty_list():
+    response = client.get("/restaurants?cuisine=Mexican")
+
+    assert response.status_code == 200
+    assert response.json() == []
 
 def test_restaurant_creation_schema():
     restaurant = RestaurantCreate(
