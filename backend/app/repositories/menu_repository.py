@@ -57,4 +57,10 @@ def update_menu_item(
 
     return None
 
+def load_menu_items_by_restaurant(
+    restaurant_id: int,
+    path: Path = MENU_ITEMS_FILE,
+) -> list[dict]:
+    items = load_menu_items(path)
 
+    return [item for item in items if item["restaurant_id"] == restaurant_id]
