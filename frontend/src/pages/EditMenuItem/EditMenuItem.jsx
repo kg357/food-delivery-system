@@ -1,29 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { updateMenuItem } from "../../api/menu";
 import MenuItemForm from "../../components/MenuItemForm/MenuItemForm";
 import "./EditMenuItem.css"
 
-const sampleItems = [
-    {
-        id: "item-123",
-        restaurant_id: 1,
-        name: "Burger",
-        description: "Beef burger",
-        price: 12.99,
-        available: true
-    },
-    {
-        id: "item-456",
-        restaurant_id: 1,
-        name: "Pizza",
-        description: "Cheese pizza",
-        price: 15.99,
-        available: true
-    }
-];
 
 function EditMenuItem() {
-    const [items, setItems] = useState(sampleItems);
+    const [items, setItems] = useState([]);
+
+useEffect(() => {
+  async function loadMenu() {
+    try {
+      const response = await fetch("/restaurants/1/menu");
+
+      if (!response.ok) {
+        throw new Error("Failed to load menu");
+      }
+
+      const data = await response.json();
+      setItems(data);
+    } catch (error) {
+      console.error("Failed to load menu:", error);
+    }
+  }
+
+  loadMenu();
+}, []);
     const [editingItem, setEditingItem] =
         useState(null);
 
