@@ -1,28 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
-const sampleItems = [
-  {
-    id: "item-123",
-    restaurant_id: 1,
-    name: "Burger",
-    description: "Beef burger",
-    price: 12.99,
-    available: true,
-  },
-  {
-    id: "item-456",
-    restaurant_id: 1,
-    name: "Pizza",
-    description: "Cheese pizza",
-    price: 15.99,
-    available: true,
-  },
-];
 
 function App() {
-  const [items, setItems] = useState(sampleItems);
+  const [items, setItems] = useState([]);
+  const [error, setError] = useState("");
   const [editingItem, setEditingItem] = useState(null);
+
+  const restaurantId = 1; // Temporary until owner login is implemented
+
+useEffect(() => {
+  async function loadMenu() {
+    try {
+      const response = await fetch(
+        `/restaurants/${restaurantId}/menu`
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to load menu");
+      }
+
+      const data = await response.json();
+      setItems(data);
+    } catch (error) {
+      setError(error.message);
+    }
+  }
+
+  loadMenu();
+}, []);
 
   async function handleSave(event) {
   event.preventDefault();
@@ -66,6 +72,7 @@ function App() {
   return (
     <div>
       <h1>Restaurant Menu</h1>
+      {error && <p role="alert">{error}</p>}
 
       {items.map((item) => (
         <div key={item.id}>
