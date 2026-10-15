@@ -1,10 +1,1 @@
-[
-    {
-        "name": "Cheeseburger",
-        "description": "Beef patty with cheddar cheese, lettuce, tomato, and house sauce",
-        "price": 14.98,
-        "available": true,
-        "id": "0b9fdcf5-a0de-40af-a17b-a583906a3eca",
-        "restaurant_id": 1
-    }
-]
+[]
