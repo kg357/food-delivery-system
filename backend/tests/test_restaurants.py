@@ -201,3 +201,61 @@ def test_creation_preserves_existing_restaurants(test_file):
     saved_restaurants = load_restaurants(test_file)
     assert saved_restaurants[0]["name"] == "Existing Restaurant"
     assert saved_restaurants[0]["id"] == 1
+
+
+@pytest.mark.parametrize("invalid_data", [
+    {
+        "cuisine": "American",
+        "address": "123 Main Street"
+    },
+    {
+        "name": "",
+        "cuisine": "American",
+        "address": "123 Main Street"
+    },
+    {
+        "name": "   ",
+        "cuisine": "American",
+        "address": "123 Main Street"
+    },
+    {
+        "name": "New Cafe",
+        "cuisine": "",
+        "address": "123 Main Street"
+    },
+    {
+        "name": "New Cafe",
+        "cuisine": "American",
+        "address": ""
+    },
+    {
+        "name": "A" * 101,
+        "cuisine": "American",
+        "address": "123 Main Street"
+    },
+    {
+        "name": "New Cafe",
+        "cuisine": "American",
+        "address": "123 Main Street",
+        "rating": 5.0
+    },
+    {
+        "name": "New Cafe",
+        "cuisine": "American",
+        "address": "123 Main Street",
+        "owner_id": "fake_owner"
+    },
+    {
+        "name": 123,
+        "cuisine": "American",
+        "address": "123 Main Street"
+    }
+])
+
+
+def test_invalid_restaurant_creation(invalid_data):
+    response = client.post(
+        "/restaurants",
+        json=invalid_data
+    )
+    assert response.status_code == 422
