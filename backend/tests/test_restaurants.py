@@ -1,12 +1,12 @@
 import json
-import pytest
-from pydantic import ValidationError
-from fastapi.testclient import TestClient
 
+import pytest
 from app.main import app
 from app.repositories.restaurant_repository import load_restaurants
-from app.services.restaurant_service import create_restaurant, get_all_restaurants
 from app.schemas.restaurant import Restaurant, RestaurantCreate
+from app.services.restaurant_service import create_restaurant, get_all_restaurants
+from fastapi.testclient import TestClient
+from pydantic import ValidationError
 
 client = TestClient(app)
 
