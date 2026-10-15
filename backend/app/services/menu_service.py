@@ -1,8 +1,15 @@
 from pathlib import Path
 
 from app.core.config import MENU_ITEMS_FILE, RESTAURANTS_FILE
-from app.repositories.menu_repository import create_menu_item, update_menu_item
-from app.repositories.restaurant_repository import load_restaurants
+from app.repositories.menu_repository import (
+    create_menu_item,
+    load_menu_items_by_restaurant,
+    update_menu_item,
+)
+from app.repositories.restaurant_repository import (
+    load_restaurant_by_id,
+    load_restaurants,
+)
 
 
 def add_menu_item(
@@ -58,3 +65,14 @@ def edit_menu_item(
         raise ValueError("Menu item not found")
 
     return updated_item
+
+
+def get_menu_for_restaurant(
+    restaurant_id: int,
+    restaurants_path: Path = RESTAURANTS_FILE,
+    menu_items_path: Path = MENU_ITEMS_FILE,
+) -> list[dict]:
+    if load_restaurant_by_id(restaurant_id, restaurants_path) is None:
+        raise ValueError("Restaurant not found")
+
+    return load_menu_items_by_restaurant(restaurant_id, menu_items_path)
