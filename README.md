@@ -36,7 +36,7 @@ With the virtual environment activated, install the project dependencies:
 pip install -r requirements.txt
 ```
 
-## Start the Application
+## Start the Backend 
 
 From the `backend` directory, run:
 
@@ -84,6 +84,26 @@ python3 -m pytest
 ```
 
 Covers the health endpoint, the restaurant-list endpoint, repository behavior (using isolated temporary test data, never the committed data file), and at least one invalid-data failure case.
+
+
+
+## Frontend Setup
+
+The frontend uses React and Vite.
+
+### Requirements
+- Node.js
+- npm
+
+### Install Dependencies
+
+From the repository root:
+
+```bash
+cd frontend
+npm install
+npm run dev
+
 
 ## Repository Structure
 
