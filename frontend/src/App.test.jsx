@@ -26,6 +26,7 @@ afterEach(() => {
 });
 
 test("displays menu items from the backend", async () => {
+  window.history.pushState({}, "", "/menu/edit");
   render(<App />);
 
   expect(await screen.findByText("Cheeseburger")).toBeInTheDocument();
@@ -45,6 +46,7 @@ test("saves an edited menu item using PATCH", async () => {
       json: async () => ({ ...menuItem, price: 14.99 }),
     });
 
+  window.history.pushState({}, "", "/menu/edit");
   render(<App />);
 
   await screen.findByText("Cheeseburger");
