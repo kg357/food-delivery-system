@@ -1,5 +1,5 @@
 from app.schemas.menu_item import MenuItem, MenuItemCreate, MenuItemUpdate
-from app.services.menu_service import add_menu_item, edit_menu_item, get_restaurant_menu
+from app.services.menu_service import add_menu_item, edit_menu_item
 from fastapi import APIRouter, HTTPException, status
 
 router = APIRouter()
@@ -49,15 +49,3 @@ def edit_menu_item_endpoint(
             ) from error
 
 
-@router.get(
-    "/restaurants/{restaurant_id}/menu",
-    response_model=list[MenuItem],
-)
-def get_restaurant_menu_endpoint(restaurant_id: int):
-    try:
-        return get_restaurant_menu(restaurant_id)
-    except ValueError as error:
-        raise HTTPException(
-            status_code=404,
-            detail=str(error),
-        ) from error
