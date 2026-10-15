@@ -1,0 +1,29 @@
+.restaurant-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.restaurant-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.restaurant-name {
+  color: #c62828;
+  margin-bottom: 0.5rem;
+}
+
+.restaurant-rating {
+  color: #ff9800;
+  font-weight: bold;
+}
+
+.restaurant-cuisine {
+  color: #2e7d32;
+  font-weight: 600;
+}

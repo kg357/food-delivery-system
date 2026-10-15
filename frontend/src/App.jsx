@@ -1,149 +1,26 @@
-import { useState } from "react";
-import "./App.css";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import RestaurantList from "./pages/RestaurantList/RestaurantList";
+import EditMenuItem from "./pages/EditMenuItem/EditMenuItem";
 
-const sampleItems = [
-  {
-    id: "item-123",
-    restaurant_id: 1,
-    name: "Burger",
-    description: "Beef burger",
-    price: 12.99,
-    available: true,
-  },
-  {
-    id: "item-456",
-    restaurant_id: 1,
-    name: "Pizza",
-    description: "Cheese pizza",
-    price: 15.99,
-    available: true,
-  },
-];
+import "./App.css"
 
 function App() {
-  const [items, setItems] = useState(sampleItems);
-  const [editingItem, setEditingItem] = useState(null);
-
-  async function handleSave(event) {
-  event.preventDefault();
-
-  try {
-    const response = await fetch(
-      `/restaurants/${editingItem.restaurant_id}/menu/${editingItem.id}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: editingItem.name,
-          description: editingItem.description,
-          price: Number(editingItem.price),
-          available: editingItem.available,
-        }),
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to update menu item");
-    }
-
-    const updatedItem = await response.json();
-
-    setItems((previousItems) =>
-      previousItems.map((item) =>
-        item.id === updatedItem.id ? updatedItem : item
-      )
-    );
-
-    setEditingItem(null);
-    alert("Menu item updated successfully!");
-  } catch (error) {
-    alert(error.message);
-  }
-}
-
   return (
-    <div>
-      <h1>Restaurant Menu</h1>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={<Navigate to="/restaurants" />}
+        />
 
-      {items.map((item) => (
-        <div key={item.id}>
-          <h3>{item.name}</h3>
-          <p>{item.description}</p>
-          <p>${item.price.toFixed(2)}</p>
-
-          <button onClick={() => setEditingItem({ ...item })}>
-            Edit
-          </button>
-        </div>
-      ))}
-
-      {editingItem && (
-        <form onSubmit={handleSave}>
-          <h2>Edit Menu Item</h2>
-
-          <label htmlFor="name">Name</label>
-          <input
-            id="name"
-            value={editingItem.name}
-            onChange={(e) =>
-              setEditingItem({ ...editingItem, name: e.target.value })
-            }
-            required
-          />
-
-          <label htmlFor="description">Description</label>
-          <input
-            id="description"
-            value={editingItem.description}
-            onChange={(e) =>
-              setEditingItem({
-                ...editingItem,
-                description: e.target.value,
-              })
-            }
-          />
-
-          <label htmlFor="price">Price</label>
-          <input
-            id="price"
-            type="number"
-            min="0"
-            step="0.01"
-            value={editingItem.price}
-            onChange={(e) =>
-              setEditingItem({
-                ...editingItem,
-                price: e.target.value,
-              })
-            }
-            required
-          />
-
-          <label htmlFor="available">Availability</label>
-          <select
-            id="available"
-            value={String(editingItem.available)}
-            onChange={(e) =>
-              setEditingItem({
-                ...editingItem,
-                available: e.target.value === "true",
-              })
-            }
-          >
-            <option value="true">Available</option>
-            <option value="false">Unavailable</option>
-          </select>
-
-          <button type="submit">Save Changes</button>
-          <button type="button" onClick={() => setEditingItem(null)}>
-            Cancel
-          </button>
-        </form>
-      )}
-    </div>
-  );
+        <Route
+          path="/restaurants"
+          element={<RestaurantList />}
+        />
+        <Route path="/menu/edit" element={<EditMenuItem />} />
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 export default App;
