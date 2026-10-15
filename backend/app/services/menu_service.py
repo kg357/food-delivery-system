@@ -3,6 +3,7 @@ from pathlib import Path
 from app.core.config import MENU_ITEMS_FILE, RESTAURANTS_FILE
 from app.repositories.menu_repository import (
     create_menu_item,
+    load_menu_item_by_id,
     load_menu_items_by_restaurant,
     update_menu_item,
 )
@@ -76,3 +77,20 @@ def get_menu_for_restaurant(
         raise ValueError("Restaurant not found")
 
     return load_menu_items_by_restaurant(restaurant_id, menu_items_path)
+
+
+def get_menu_item_for_restaurant(
+    restaurant_id: int,
+    item_id: str,
+    restaurants_path: Path = RESTAURANTS_FILE,
+    menu_items_path: Path = MENU_ITEMS_FILE,
+) -> dict:
+    if load_restaurant_by_id(restaurant_id, restaurants_path) is None:
+        raise ValueError("Restaurant not found")
+
+    item = load_menu_item_by_id(restaurant_id, item_id, menu_items_path)
+
+    if item is None:
+        raise ValueError("Menu item not found")
+
+    return item

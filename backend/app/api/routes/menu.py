@@ -3,6 +3,7 @@ from app.services.menu_service import (
     add_menu_item,
     edit_menu_item,
     get_menu_for_restaurant,
+    get_menu_item_for_restaurant,
 )
 from fastapi import APIRouter, HTTPException, status
 
@@ -60,6 +61,20 @@ def edit_menu_item_endpoint(
 def list_menu_items_endpoint(restaurant_id: int):
     try:
         return get_menu_for_restaurant(restaurant_id)
+    except ValueError as error:
+        raise HTTPException(
+            status_code=404,
+            detail=str(error),
+        ) from error
+
+
+@router.get(
+    "/restaurants/{restaurant_id}/menu/{item_id}",
+    response_model=MenuItem,
+)
+def get_menu_item_endpoint(restaurant_id: int, item_id: str):
+    try:
+        return get_menu_item_for_restaurant(restaurant_id, item_id)
     except ValueError as error:
         raise HTTPException(
             status_code=404,
