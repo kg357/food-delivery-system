@@ -2,6 +2,7 @@ from app.schemas.restaurant import Restaurant, RestaurantCreate, RestaurantUpdat
 from app.services.restaurant_service import (
     create_restaurant,
     get_all_restaurants,
+    get_restaurant_by_id,
     update_restaurant,
 )
 from fastapi import APIRouter, Query, status
@@ -21,6 +22,11 @@ def list_restaurants(
         )
 ):
     return get_all_restaurants(cuisine = cuisine, min_rating=min_rating)
+
+@router.get("/restaurants/{restaurant_id}",
+            response_model=Restaurant)
+def restaurant_details(restaurant_id: int):
+    return get_restaurant_by_id(restaurant_id)
  
 @router.post("/restaurants", response_model=Restaurant, status_code=status.HTTP_201_CREATED
 )

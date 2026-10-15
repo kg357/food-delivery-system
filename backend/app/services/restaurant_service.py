@@ -1,9 +1,14 @@
 from pathlib import Path
-from fastapi import HTTPException
+
 from app.core.config import RESTAURANTS_FILE
 from app.core.identifiers import generate_restaurant_id
-from app.repositories.restaurant_repository import load_restaurants, save_restaurants
+from app.repositories.restaurant_repository import (
+    load_restaurant_by_id,
+    load_restaurants,
+    save_restaurants,
+)
 from app.schemas.restaurant import Restaurant, RestaurantCreate, RestaurantUpdate
+from fastapi import HTTPException
 
 
 def get_all_restaurants(
@@ -35,6 +40,19 @@ def get_all_restaurants(
     # Convert each raw dictionary into a Restaurant objec using
     # dictionary unpacking (**restaurant), then return the new list of objects
     return [Restaurant(**restaurant) for restaurant in restaurants]
+
+
+def get_restaurant_by_id(restaurant_id: int) -> Restaurant:
+    restaurant = load_restaurant_by_id(restaurant_id)
+
+    if restaurant is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Restaurant not found"
+        )
+
+    return Restaurant(**restaurant)
+
 
 def create_restaurant(restaurant_data: RestaurantCreate, owner_id: str, path: Path = RESTAURANTS_FILE) -> Restaurant:
     raw_data = load_restaurants(path)
