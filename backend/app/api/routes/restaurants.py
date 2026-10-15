@@ -1,5 +1,5 @@
 from app.schemas.restaurant import Restaurant, RestaurantCreate
-from app.services.restaurant_service import get_all_restaurants, create_restaurant
+from app.services.restaurant_service import create_restaurant, get_all_restaurants
 from fastapi import APIRouter, Query, status
 
 router = APIRouter()

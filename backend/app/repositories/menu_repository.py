@@ -35,3 +35,24 @@ def create_menu_item(
     save_menu_items(items, path)
 
     return new_item
+
+
+def update_menu_item(
+    restaurant_id: int,
+    item_id: str,
+    updates: dict,
+    path: Path = MENU_ITEMS_FILE,
+) -> dict | None:
+
+    items = load_menu_items(path)
+
+    for item in items:
+        if (
+            item["id"] == item_id
+            and item["restaurant_id"] == restaurant_id
+        ):
+            item.update(updates)
+            save_menu_items(items, path)
+            return item
+
+    return None
