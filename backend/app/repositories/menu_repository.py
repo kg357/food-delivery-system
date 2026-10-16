@@ -64,3 +64,17 @@ def load_menu_items_by_restaurant(
     items = load_menu_items(path)
 
     return [item for item in items if item["restaurant_id"] == restaurant_id]
+
+
+def load_menu_item_by_id(
+    restaurant_id: int,
+    item_id: str,
+    path: Path = MENU_ITEMS_FILE,
+) -> dict | None:
+    items = load_menu_items(path)
+
+    for item in items:
+        if item["id"] == item_id and item["restaurant_id"] == restaurant_id:
+            return item
+
+    return None
