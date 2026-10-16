@@ -1,29 +1,102 @@
+.restaurant-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.restaurant_details {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  min-width: 0;
+}
+
 .restaurant-card {
-  background: white;
-  border-radius: 16px;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: all 0.25s ease;
-  cursor: pointer;
+  background: #fff;
+  border: 1px solid #f0eeeb;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .restaurant-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.09);
+}
+
+.restaurant-banner {
+  height: 220px;
+  background: #eae5df;
+  position: relative;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.restaurant-banner h2 {
+  color: #57534e;
+  font-size: 1.7rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 0;
+}
+
+.cuisine-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: white;
+  color: #44403c;
+  padding: 8px 13px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.restaurant-info {
+  padding: 1.25rem;
+}
+.restaurant-info-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
 }
 
 .restaurant-name {
-  color: #c62828;
-  margin-bottom: 0.5rem;
+  color: #292524;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+  min-width: 0;
 }
 
-.restaurant-rating {
-  color: #ff9800;
-  font-weight: bold;
-}
-
-.restaurant-cuisine {
-  color: #2e7d32;
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #44403c;
+  font-size: 1rem;
   font-weight: 600;
+  white-space: nowrap;
+}
+
+.rating span {
+  color: #f9a825;
+  font-size: 1.3rem;
+}
+
+@media (max-width: 400px) {
+  .restaurant-banner {
+  height: 190px;
+  }
+
+  .restaurant-info-header {
+    align-items: flex-start;
+  }
+
+  .restaurant-name {
+    font-size: 1.05rem;
+  }
 }
