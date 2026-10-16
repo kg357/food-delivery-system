@@ -10,7 +10,9 @@ function EditMenuItem() {
 useEffect(() => {
   async function loadMenu() {
     try {
-      const response = await fetch("/restaurants/1/menu");
+      const response = await fetch(
+    "http://localhost:8000/restaurants/1/menu"
+);
 
       if (!response.ok) {
         throw new Error("Failed to load menu");

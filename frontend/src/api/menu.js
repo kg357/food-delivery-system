@@ -4,7 +4,7 @@ export async function updateMenuItem(
     menuItem
 ) {
     const response = await fetch(
-        `/restaurants/${restaurantId}/menu/${itemId}`,
+        `http://localhost:8000/restaurants/${restaurantId}/menu/${itemId}`,
         {
             method: "PATCH",
             headers: {
@@ -16,6 +16,25 @@ export async function updateMenuItem(
 
     if (!response.ok) {
         throw new Error("Failed to update menu item");
+    }
+
+    return response.json();
+}
+
+export async function addMenuItem(restaurantId, menuItem) {
+    const response = await fetch(
+        `http://localhost:8000/restaurants/${restaurantId}/menu`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(menuItem)
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error("Failed to add menu item");
     }
 
     return response.json();
