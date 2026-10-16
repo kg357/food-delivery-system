@@ -1,20 +1,28 @@
 .restaurant-list-container {
-  padding: 1rem;
+  width: 100%;
+  padding: 2rem;
+  margin: 0 auto;
+}
+
+.restaurant-list-container h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
 }
 
 .restaurant-grid {
   display: grid;
   grid-template-columns: repeat(
-    auto-fit,
-    minmax(280px, 1fr)
+    3,
+    minmax(0, 1fr)
   );
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .loading {
   text-align: center;
-  color: #2e7d32;
-  font-size: 1.2rem;
+  color: #78716c;
+  font-size: 1.1rem;
   margin-top: 2rem;
 }
 
@@ -22,9 +30,27 @@
   text-align: center;
   color: #c62828;
   font-weight: bold;
+  margin-top: 2rem;
 }
 
 .empty {
   text-align: center;
-  color: #777;
+  color: #78716c;
+  margin-top: 2rem;
+}
+
+@media (max-width: 1000px) {
+  .restaurant-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .restaurant-list-container {
+    padding: 1rem;
+  }
+  .restaurant-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 }

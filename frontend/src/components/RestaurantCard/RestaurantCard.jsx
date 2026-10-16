@@ -1,23 +1,35 @@
 import "./RestaurantCard.css"
+import { Link } from "react-router-dom";
 
 function RestaurantCard({ restaurant }) {
     return (
-        <div className="restaurant-card"
+        <Link
+            to={`/restaurants/${restaurant.id}`}
+            className='restaurant_details'
         >
-            <h2 className="restaurant-name">{restaurant.name}</h2>
+            <div className="restaurant-card"
+            >
+                <div className="restaurant-banner">
+                    <div className="cuisine-badge">
+                        {restaurant.cuisine}
+                    </div>
+                    <h2>{restaurant.name}</h2>
+                </div>
 
-            <p className="restaurant-cuisine">
-                Cuisine: {restaurant.cuisine}
-            </p>
+                <div className="restaurant-info">
+                    <div className="restaurant-info-header">
+                        <h3 className="restaurant-name">
+                            {restaurant.name}
+                        </h3>
 
-            <p className="restaurant-rating">
-                Rating: {restaurant.rating}
-            </p>
-
-            <p>
-                Address: {restaurant.address}
-            </p>
-        </div>
+                        <div className="rating">
+                            <span>★</span>
+                            {restaurant.rating}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </Link>
     );
 }
 
