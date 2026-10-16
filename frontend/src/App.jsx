@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import RestaurantList from "./pages/RestaurantList/RestaurantList";
 import RestaurantDetails from "./pages/RestaurantDetails/RestaurantDetails";
+import MenuItemDetails from "./pages/MenuItemDetails/MenuItemDetails";
 import EditMenuItem from "./pages/EditMenuItem/EditMenuItem";
 import AddMenuItem from "./pages/AddMenuItem/AddMenuItem";
 
@@ -23,6 +24,11 @@ function App() {
         <Route
           path="/restaurants/:id"
           element={<RestaurantDetails />}
+        />
+
+        <Route
+          path="/restaurants/:id/menu/:itemId"
+          element={<MenuItemDetails />}
         />
 
         <Route path="/menu/edit" element={<EditMenuItem />} />

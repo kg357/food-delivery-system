@@ -69,6 +69,27 @@ Returns the list of representative restaurants, e.g.:
 ]
 ```
 
+**GET `/restaurants/{restaurant_id}/menu`**
+
+Returns every menu item that belongs to the given restaurant, including items marked unavailable. Returns an empty list if the restaurant has no items. Returns HTTP 404 (`{"detail": "Restaurant not found"}`) if the restaurant does not exist, and HTTP 422 if `restaurant_id` is not an integer. E.g.:
+
+```json
+[
+    {
+        "id": "3f1c2a9e-5b7d-4e21-9c0a-8d6e4b1f2a77",
+        "restaurant_id": 1,
+        "name": "Tonkotsu Ramen",
+        "description": "Pork broth with noodles",
+        "price": 14.5,
+        "available": true
+    }
+]
+```
+
+**GET `/restaurants/{restaurant_id}/menu/{item_id}`**
+
+Returns a single menu item (same shape as above). Returns HTTP 404 with `{"detail": "Restaurant not found"}` if the restaurant does not exist, or `{"detail": "Menu item not found"}` if the item does not exist or belongs to a different restaurant.
+
 ## API Documentation
 
 Interactive docs (Swagger UI) are available at:
@@ -84,6 +105,16 @@ python3 -m pytest
 ```
 
 Covers the health endpoint, the restaurant-list endpoint, repository behavior (using isolated temporary test data, never the committed data file), and at least one invalid-data failure case.
+
+The menu endpoints are covered by `tests/test_menu_browse.py` and `tests/test_menu_item_details.py`.
+
+Frontend tests (from the `frontend` directory):
+
+```bash
+npx vitest run
+```
+
+The menu list and menu item details pages are covered by `src/tests/MenuList.test.jsx` and `src/tests/MenuItemDetails.test.jsx`.
 
 
 

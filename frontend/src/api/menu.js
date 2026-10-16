@@ -39,3 +39,31 @@ export async function addMenuItem(restaurantId, menuItem) {
 
     return response.json();
 }
+
+export async function getMenu(restaurantId) {
+    const response = await fetch(
+        `http://localhost:8000/restaurants/${restaurantId}/menu`
+    );
+
+    if (!response.ok) {
+        throw new Error("Failed to load menu");
+    }
+
+    return response.json();
+}
+
+export async function getMenuItem(restaurantId, itemId) {
+    const response = await fetch(
+        `http://localhost:8000/restaurants/${restaurantId}/menu/${itemId}`
+    );
+
+    if (response.status === 404) {
+        throw new Error("Menu item not found");
+    }
+
+    if (!response.ok) {
+        throw new Error("Failed to load menu item");
+    }
+
+    return response.json();
+}
