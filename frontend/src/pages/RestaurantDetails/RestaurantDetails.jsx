@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getRestaurantById } from "../../api/restaurants";
 import Loading from "../../components/Loading/Loading";
+import MenuList from "../../components/MenuList/MenuList";
 import "./RestaurantDetails.css";
 
 function RestaurantDetails() {
@@ -82,7 +83,7 @@ function RestaurantDetails() {
             <section className="menu-section">
                 <h2 className="menu-title">Menu</h2>
 
-                <div className="menu-placeholder">Menu items will be displayed here.</div>
+                <MenuList restaurantId={id} />
             </section>
         </main>
     )
