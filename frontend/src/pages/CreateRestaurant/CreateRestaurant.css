@@ -1,0 +1,38 @@
+
+.create-restaurant-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  text-align: left;
+}
+
+.create-back-link {
+  display: inline-block;
+  margin-bottom: 24px;
+  color: #9a3412;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.create-restaurant-card {
+  background: white;
+  border: 1px solid #eee5df;
+  border-radius: 16px;
+  padding: 32px;
+}
+
+.create-restaurant-card h1 {
+  font-size: 32px;
+  margin: 0 0 12px;
+}
+
+.create-restaurant-card > p {
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .create-restaurant-card {
+    padding: 20px;
+  }
+}

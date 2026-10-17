@@ -2,16 +2,20 @@ import { useEffect, useState } from "react";
 import { updateMenuItem } from "../../api/menu";
 import MenuItemForm from "../../components/MenuItemForm/MenuItemForm";
 import "./EditMenuItem.css"
+import { Link, useParams } from "react-router-dom";
 
 
 function EditMenuItem() {
+
+    const { id } = useParams();
+    const restaurantId = id ?? "1";
     const [items, setItems] = useState([]);
 
 useEffect(() => {
   async function loadMenu() {
     try {
       const response = await fetch(
-    "http://localhost:8000/restaurants/1/menu"
+    `http://localhost:8000/restaurants/${restaurantId}/menu`
 );
 
       if (!response.ok) {
@@ -26,7 +30,7 @@ useEffect(() => {
   }
 
   loadMenu();
-}, []);
+}, [restaurantId]);
     const [editingItem, setEditingItem] =
         useState(null);
 
@@ -62,6 +66,16 @@ useEffect(() => {
 
     return (
         <div className="menu-page">
+                
+            {id && (
+                <Link
+                    to={`/owner/restaurants/${id}`}
+                    className="menu-back-link"
+                >
+                    ← Back to Restaurant
+                </Link>
+            )}
+
             <h1 className="page-title">Restaurant Menu</h1>
 
             <div className="menu-grid">
@@ -81,6 +95,17 @@ useEffect(() => {
                     </div>
                 ))}
             </div>
+
+            {id && (
+            <div className="menu-add-action">
+                <Link
+                to={`/owner/restaurants/${id}/menu/add`}
+                className="menu-add-button"
+                >
+                + Add Menu Item
+                </Link>
+            </div>
+            )}
 
             {editingItem && (
                 <MenuItemForm

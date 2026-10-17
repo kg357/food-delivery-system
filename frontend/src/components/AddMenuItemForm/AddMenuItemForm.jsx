@@ -10,18 +10,24 @@ function AddMenuItemForm({
     setPrice,
     available,
     setAvailable,
-    handleSubmit
+    handleSubmit,
+    isOwnerMode = false
 }) {
     return (
         <form onSubmit={handleSubmit} noValidate>
-            <label htmlFor="restaurantId">Restaurant ID</label>
-            <input
+            {!isOwnerMode && (
+            <>
+                <label htmlFor="restaurantId">Restaurant ID</label>
+                <input
                 id="restaurantId"
                 type="number"
                 min="1"
                 value={restaurantId}
-                onChange={(e) => setRestaurantId(e.target.value)}
-            />
+                onChange={(event) => setRestaurantId(event.target.value)}
+                required
+                />
+            </>
+            )}
 
             <label htmlFor="name">Name</label>
             <input

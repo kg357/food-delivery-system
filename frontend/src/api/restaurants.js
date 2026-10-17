@@ -23,3 +23,52 @@ export async function getRestaurantById(id) {
 
     return response.json();
 }
+
+export async function createRestaurant(restaurantData) {
+  const response = await fetch(
+    "http://localhost:8000/restaurants",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(restaurantData),
+    }
+  );
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => null);
+    const message =
+      typeof errorData?.detail === "string"
+        ? errorData.detail
+        : "Failed to create restaurant.";
+
+    throw new Error(message);
+  }
+
+  return response.json();
+}
+
+export async function updateRestaurant(id, restaurantData) {
+  const response = await fetch(
+    `http://localhost:8000/restaurants/${id}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(restaurantData),
+    }
+  );
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => null);
+    throw new Error(
+      typeof errorData?.detail === "string"
+        ? errorData.detail
+        : `Failed to update restaurant (${response.status}).`
+    );
+  }
+
+  return response.json();
+}

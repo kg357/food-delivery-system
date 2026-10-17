@@ -56,7 +56,7 @@ function RestaurantDetails() {
         <main className="restaurant-details">
             <Link to="/restaurants"
                 className="back-link"
-            ><span aria-hidden="true">←</span>All restaurantss</Link>
+            ><span aria-hidden="true">←</span>All restaurants</Link>
 
             <div className="hero-banner">
                 <div className="hero-overlay">
