@@ -1,9 +1,15 @@
 import AddMenuItemForm from "../../components/AddMenuItemForm/AddMenuItemForm";
 import { useState } from "react";
 import { addMenuItem } from "../../api/menu";
+import { useParams, Link } from "react-router-dom";
+import "./AddMenuItem.css";
 
 function AddMenuItem() {
-    const [restaurantId, setRestaurantId] = useState("1");
+    const { id } = useParams();
+    const isOwnerMode = id !== undefined;
+    const [manualRestaurantId, setManualRestaurantId] = useState("1");
+    const restaurantId = isOwnerMode ? id : manualRestaurantId;
+    const setRestaurantId = setManualRestaurantId;
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
@@ -46,36 +52,59 @@ function AddMenuItem() {
         }
     }
 
+
     return (
-        <div>
-            <h1>Add Menu Item</h1>
+    <main className="add-menu-page">
+        {isOwnerMode && (
+            <Link
+            to={`/owner/restaurants/${restaurantId}`}
+            className="add-menu-back"
+            >
+            ← Back to Restaurant
+            </Link>
+        )}
 
-            <AddMenuItemForm
-                restaurantId={restaurantId}
-                setRestaurantId={setRestaurantId}
-                name={name}
-                setName={setName}
-                description={description}
-                setDescription={setDescription}
-                price={price}
-                setPrice={setPrice}
-                available={available}
-                setAvailable={setAvailable}
-                handleSubmit={handleSubmit}
-            />
+        <section className="add-menu-card">
+        <h1>Add Menu Item</h1>
 
-            {error && <p role="alert">{error}</p>}
+        <p className="add-menu-description">
+            Enter the details of the new item you want to
+            add to your restaurant's menu.
+        </p>
 
-            {createdItem && (
-                <div>
-                    <p role="status">Menu item added successfully!</p>
-                    <h2>{createdItem.name}</h2>
-                    <p>{createdItem.description}</p>
-                    <p>${Number(createdItem.price).toFixed(2)}</p>
-                </div>
-            )}
+        <AddMenuItemForm
+            isOwnerMode={isOwnerMode}
+            restaurantId={restaurantId}
+            setRestaurantId={setRestaurantId}
+            name={name}
+            setName={setName}
+            description={description}
+            setDescription={setDescription}
+            price={price}
+            setPrice={setPrice}
+            available={available}
+            setAvailable={setAvailable}
+            handleSubmit={handleSubmit}
+        />
+
+        {error && (
+            <p className="add-menu-error" role="alert">
+            {error}
+            </p>
+        )}
+
+        {createdItem && (
+        <div className="add-menu-success" role="status">
+            <strong>Menu item added successfully!</strong>
+            <h2>{createdItem.name}</h2>
+            <p>{createdItem.description}</p>
+            <p>${Number(createdItem.price).toFixed(2)}</p>
         </div>
+        )}
+        </section>
+    </main>
     );
+
 }
 
 export default AddMenuItem;

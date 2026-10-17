@@ -1,74 +1,74 @@
 [
-  {
-    "id": "1b314e96-a523-444f-97f6-0cdfe8f15497",
-    "restaurant_id": 1,
-    "name": "Tonkotsu Ramen",
-    "description": "Pork bone broth, chashu pork, soft egg, green onion",
-    "price": 16.5,
-    "available": true
-  },
-  {
-    "id": "3e2906b9-3306-4316-915d-9b4f53073e80",
-    "restaurant_id": 1,
-    "name": "Vegetable Gyoza",
-    "description": "Six pan-fried dumplings with ponzu dipping sauce",
-    "price": 8.0,
-    "available": true
-  },
-  {
-    "id": "6d1d8082-bbb5-40e8-b431-9b124b3325ac",
-    "restaurant_id": 1,
-    "name": "Matcha Ice Cream",
-    "description": "Two scoops of green tea ice cream",
-    "price": 5.5,
-    "available": false
-  },
-  {
-    "id": "8eb87f7f-cd39-471f-82b4-aafc14e3fd4c",
-    "restaurant_id": 2,
-    "name": "Spaghetti Carbonara",
-    "description": "Egg, pecorino, guanciale and black pepper",
-    "price": 17.0,
-    "available": true
-  },
-  {
-    "id": "811e8926-b844-4126-a5f3-626fccc57849",
-    "restaurant_id": 2,
-    "name": "Margherita Pizza",
-    "description": "Tomato, fresh mozzarella and basil",
-    "price": 15.0,
-    "available": true
-  },
-  {
-    "id": "61ce9dbe-6d3c-4265-8d12-7d9c44562e6b",
-    "restaurant_id": 2,
-    "name": "Tiramisu",
-    "description": "Espresso-soaked ladyfingers with mascarpone",
-    "price": 7.5,
-    "available": true
-  },
-  {
-    "id": "8219f7ea-3e84-4857-be7d-d46a74682828",
-    "restaurant_id": 3,
-    "name": "Butter Chicken",
-    "description": "Tandoori chicken in a creamy tomato sauce, with rice",
-    "price": 18.5,
-    "available": true
-  },
-  {
-    "id": "cc79920b-214c-4ff4-9115-2ef5bd805db8",
-    "restaurant_id": 3,
-    "name": "Garlic Naan",
-    "description": "Fresh-baked flatbread brushed with garlic butter",
-    "price": 4.0,
-    "available": true
-  },
-  {
-    "id": "3e49bcd7-1e8d-42d8-9b05-b31ca69dca56",
-    "restaurant_id": 3,
-    "name": "Mango Lassi",
-    "description": "Chilled yogurt drink blended with mango",
-    "price": 5.0,
-    "available": false
-  }
+    {
+        "id": "1b314e96-a523-444f-97f6-0cdfe8f15497",
+        "restaurant_id": 1,
+        "name": "Tonkotsu Ramen",
+        "description": "Pork bone broth, chashu pork, soft egg, green onion",
+        "price": 16.5,
+        "available": true
+    },
+    {
+        "id": "3e2906b9-3306-4316-915d-9b4f53073e80",
+        "restaurant_id": 1,
+        "name": "Vegetable Gyoza",
+        "description": "Six pan-fried dumplings with ponzu dipping sauce",
+        "price": 8.0,
+        "available": true
+    },
+    {
+        "id": "6d1d8082-bbb5-40e8-b431-9b124b3325ac",
+        "restaurant_id": 1,
+        "name": "Matcha Ice Cream",
+        "description": "Two scoops of green tea ice cream",
+        "price": 5.5,
+        "available": false
+    },
+    {
+        "id": "8eb87f7f-cd39-471f-82b4-aafc14e3fd4c",
+        "restaurant_id": 2,
+        "name": "Spaghetti Carbonara",
+        "description": "Egg, pecorino, guanciale and black pepper",
+        "price": 17.0,
+        "available": true
+    },
+    {
+        "id": "811e8926-b844-4126-a5f3-626fccc57849",
+        "restaurant_id": 2,
+        "name": "Margherita Pizza",
+        "description": "Tomato, fresh mozzarella and basil",
+        "price": 15.0,
+        "available": true
+    },
+    {
+        "id": "61ce9dbe-6d3c-4265-8d12-7d9c44562e6b",
+        "restaurant_id": 2,
+        "name": "Tiramisu",
+        "description": "Espresso-soaked ladyfingers with mascarpone",
+        "price": 7.5,
+        "available": true
+    },
+    {
+        "id": "8219f7ea-3e84-4857-be7d-d46a74682828",
+        "restaurant_id": 3,
+        "name": "Butter Chicken",
+        "description": "Tandoori chicken in a creamy tomato sauce, with rice",
+        "price": 18.5,
+        "available": true
+    },
+    {
+        "id": "cc79920b-214c-4ff4-9115-2ef5bd805db8",
+        "restaurant_id": 3,
+        "name": "Garlic Naan",
+        "description": "Fresh-baked flatbread brushed with garlic butter",
+        "price": 4.0,
+        "available": true
+    },
+    {
+        "id": "3e49bcd7-1e8d-42d8-9b05-b31ca69dca56",
+        "restaurant_id": 3,
+        "name": "Mango Lassi",
+        "description": "Chilled yogurt drink blended with mango",
+        "price": 5.0,
+        "available": false
+    }
 ]

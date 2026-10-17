@@ -1,0 +1,125 @@
+
+.add-menu-page {
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 24px;
+  text-align: left;
+  min-height: 100vh;
+}
+
+.add-menu-back {
+  display: inline-block;
+  margin-bottom: 24px;
+  color: #9a3412;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.add-menu-back:hover {
+  text-decoration: underline;
+}
+
+.add-menu-card {
+  background: #ffffff;
+  border: 1px solid #e7dfd7;
+  border-radius: 16px;
+  padding: 32px;
+}
+
+.add-menu-card h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  color: #292524;
+  font-size: 32px;
+  margin: 0 0 12px;
+}
+
+.add-menu-description {
+  color: #78716c;
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+.add-menu-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.add-menu-card label {
+  color: #44403c;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.add-menu-card input,
+.add-menu-card textarea,
+.add-menu-card select {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #d6d3d1;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #292524;
+  font: inherit;
+  font-size: 15px;
+}
+
+.add-menu-card input:focus,
+.add-menu-card textarea:focus,
+.add-menu-card select:focus {
+  outline: 2px solid #c05621;
+  outline-offset: 1px;
+}
+
+.add-menu-card button[type="submit"] {
+  background: #c05621;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+.add-menu-card button[type="submit"]:hover {
+  background: #9a3412;
+}
+
+.add-menu-card button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.add-menu-error {
+  color: #b91c1c;
+  margin-top: 18px;
+}
+
+.add-menu-success {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  padding: 18px;
+  border-radius: 10px;
+  margin-top: 24px;
+}
+
+.add-menu-success h2 {
+  margin: 12px 0;
+}
+
+@media (max-width: 600px) {
+  .add-menu-page {
+    padding: 24px 16px;
+  }
+
+  .add-menu-card {
+    padding: 20px;
+  }
+
+  .add-menu-card h1 {
+    font-size: 27px;
+  }
+}

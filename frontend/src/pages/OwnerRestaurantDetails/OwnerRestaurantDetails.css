@@ -1,0 +1,107 @@
+
+.owner-detail {
+  max-width: 1050px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 24px;
+  text-align: left;
+}
+
+.owner-detail > a {
+  color: #9a3412;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.owner-detail-header,
+.owner-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin: 28px 0;
+}
+
+.owner-detail-header h1 {
+  font-size: 36px;
+  margin: 0 0 8px;
+}
+
+.owner-detail-header button,
+.owner-menu-header a {
+  background: #c05621;
+  color: white;
+  border: none;
+  border-radius: 9px;
+  padding: 12px 18px;
+  cursor: pointer;
+  font: inherit;
+  text-decoration: none;
+}
+
+.owner-detail-section {
+  background: white;
+  padding: 26px;
+  border: 1px solid #e7dfd7;
+  border-radius: 14px;
+  margin-top: 24px;
+}
+
+.owner-detail-section h2 {
+  margin-bottom: 20px;
+}
+
+.owner-info p {
+  margin: 12px 0;
+}
+
+.owner-menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.owner-menu-card {
+  border: 1px solid #e7dfd7;
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.owner-menu-card h3 {
+  margin-bottom: 10px;
+}
+
+.owner-menu-card p {
+  margin-bottom: 8px;
+}
+
+.owner-menu-card a {
+  display: inline-block;
+  margin-top: 14px;
+  color: #c05621;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .owner-detail-header,
+  .owner-menu-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+
+.owner-menu-manage-button {
+  display: inline-block;
+  margin-top: 20px;
+  background: #c05621;
+  color: #ffffff;
+  padding: 13px 20px;
+  border-radius: 9px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.owner-menu-manage-button:hover {
+  background: #9a3412;
+}

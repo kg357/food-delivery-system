@@ -56,3 +56,13 @@ This is the team's shared record of AI contributions to project artifacts. Add a
 - Influence: Helped with code generation, following the structure and style of the team's existing frontend. I reviewed the result, ran the app and tests which the AI helped with.
 - Validation: `npx vitest run` passes all 13 new tests (the 2 failures in `App.test.jsx` are pre-existing and unrelated); manually checked in the browser: restaurant page, menu list, item details, back link.
 - PR or commit: PR #100
+
+## Entry 6 — Backend organization and documentation
+- Student(s): Trinity Bell
+- Artifact: backend/tests/ (reorganized into repository/, routes/, service/, and schemas_identifiers/), backend/app/core, backend/app/schemas/, backend/app/repositories/, backend/app/services/, backend/app/api/routes/, backend/app/main.py
+- Label: AI-GENERATED
+- AI Tool: ChatGPT
+- Purpose: Reorganize and consolidate backend tests into route, service, and repository; standardize formatting; add comments to make the repository easier to understand.
+- Influence: Quickly reorganize code into a standardized formatting and add comments. I manually reviewed each edit and added them myself in VS Code. 
+- Validation: Ran python -m pytest locally after every change to verify no functionality was lost. 
+- PR or commit: 

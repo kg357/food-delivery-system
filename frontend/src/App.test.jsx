@@ -30,7 +30,7 @@ test("displays menu items from the backend", async () => {
   render(<App />);
 
   expect(await screen.findByText("Cheeseburger")).toBeInTheDocument();
-  expect(fetch).toHaveBeenCalledWith("/restaurants/1/menu");
+  expect(fetch).toHaveBeenCalledWith("http://localhost:8000/restaurants/1/menu");
 });
 
 test("saves an edited menu item using PATCH", async () => {
@@ -60,7 +60,7 @@ test("saves an edited menu item using PATCH", async () => {
 
   await waitFor(() => {
     expect(fetch).toHaveBeenCalledWith(
-      "/restaurants/1/menu/item-123",
+      "http://localhost:8000/restaurants/1/menu/item-123",
       expect.objectContaining({
         method: "PATCH",
         body: expect.stringContaining('"price":14.99'),
