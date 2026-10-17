@@ -47,11 +47,6 @@ router = APIRouter()
         "Create a menu item for an existing restaurant. "
         "The backend generates the item's unique identifier."
     ),
-    summary="Create a menu item",
-    description=(
-        "Create a menu item for an existing restaurant. "
-        "The backend generates the item's unique identifier."
-    ),
     responses={
         404: {"description": "Restaurant not found"},
         422: {"description": "Invalid request body or restaurant_id"},
