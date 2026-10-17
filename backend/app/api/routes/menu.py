@@ -47,6 +47,15 @@ router = APIRouter()
         "Create a menu item for an existing restaurant. "
         "The backend generates the item's unique identifier."
     ),
+    summary="Create a menu item",
+    description=(
+        "Create a menu item for an existing restaurant. "
+        "The backend generates the item's unique identifier."
+    ),
+    responses={
+        404: {"description": "Restaurant not found"},
+        422: {"description": "Invalid request body or restaurant_id"},
+    },
 )
 def create_menu_item_endpoint(
     restaurant_id: int,
@@ -91,6 +100,10 @@ def create_menu_item_endpoint(
         "Partially update an existing menu item. "
         "Only supplied, non-null fields are applied."
     ),
+    responses={
+        404: {"description": "Restaurant not found or menu item not found"},
+        422: {"description": "Invalid request body or restaurant_id"},
+    },
 )
 def edit_menu_item_endpoint(
     restaurant_id: int,
@@ -141,6 +154,10 @@ def edit_menu_item_endpoint(
         "Retrieve all menu items belonging to a restaurant. "
         "An existing restaurant without menu items returns an empty list."
     ),
+    responses={
+        404: {"description": "Restaurant not found"},
+        422: {"description": "restaurant_id is not an integer"},
+    },
 )
 def list_menu_items_endpoint(restaurant_id: int):
     """
@@ -175,6 +192,10 @@ def list_menu_items_endpoint(restaurant_id: int):
         "Retrieve a specific menu item belonging to a restaurant "
         "using its unique item identifier."
     ),
+    responses={
+        404: {"description": "Restaurant not found or menu item not found"},
+        422: {"description": "restaurant_id is not an integer"},
+    },
 )
 def get_menu_item_endpoint(
     restaurant_id: int,
