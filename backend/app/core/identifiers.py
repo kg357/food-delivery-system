@@ -62,3 +62,16 @@ def generate_owner_id() -> str:
     makes it suitable for JSON storage and API responses.
     """
     return str(uuid4())
+
+
+def generate_order_id() -> str:
+    """
+    Generate a new order identifier.
+
+    Returns:
+        A UUID version 4 represented as a string.
+
+    This function is similar to generate_owner_id, providing
+    unique identifiers for orders.
+    """
+    return str(uuid4())
