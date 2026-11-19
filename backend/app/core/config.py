@@ -32,3 +32,6 @@ RESTAURANTS_FILE = DATA_DIR / "restaurants.json"
 
 # Menu item records associated with restaurants.
 MENU_ITEMS_FILE = DATA_DIR / "menu_items.json"
+
+# Order records, including customer information and order details.
+ORDERS_FILE = DATA_DIR / "orders.json"
