@@ -19,6 +19,7 @@ from uuid import UUID
 from app.core.identifiers import (
     generate_owner_id,
     generate_restaurant_id,
+    generate_order_id
 )
 
 
@@ -110,3 +111,39 @@ def test_generate_owner_id_unique():
 
     # UUID() raises ValueError if the generated ID is invalid.
     assert UUID(new_id)
+
+
+
+# ============================================================
+# Order ID Generation
+# ============================================================
+
+
+def test_generate_order_id_returns_uuid():
+    """
+    Verify that generated order IDs are valid UUID strings.
+
+    UUID() validates the format and raises ValueError if the
+    identifier is not a valid UUID.
+    """
+
+    order_id = generate_order_id()
+
+    assert isinstance(order_id, str)
+
+    assert UUID(order_id)
+
+
+def test_generate_order_ids_are_unique():
+    """
+    Verify that two generated order IDs are different.
+
+    Multiple calls to generate_order_id() should not
+    return the same identifier.
+    """
+
+    first_id = generate_order_id()
+
+    second_id = generate_order_id()
+
+    assert first_id != second_id
