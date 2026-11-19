@@ -14,7 +14,7 @@ def load_orders(path: Path = ORDERS_FILE) -> list:
     Returns:
         A list of order dictionaries.
     """
-    with open(encoding="utf-8") as file:
+    with path.open(encoding="utf-8") as file:
         return json.load(file)
 
 

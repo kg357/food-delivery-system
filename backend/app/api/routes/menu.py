@@ -30,7 +30,6 @@ from app.services.menu_service import (
     get_menu_item_for_restaurant,
 )
 
-
 router = APIRouter()
 
 
