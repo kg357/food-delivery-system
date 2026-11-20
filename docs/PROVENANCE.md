@@ -107,3 +107,23 @@ This is the team's shared record of AI contributions to project artifacts. Add a
 - Influence: Helped with code generation, following the structure and style of the team's existing route / service / repository layers. I chose the plan (JWT with bcrypt, the endpoint paths, 401 versus 403, deactivation keeps the record), reviewed each layer with the AI explaining it, and ran the tests.
 - Validation: `python -m pytest` passes locally (229 passed). Logged in as the demo owner and admin accounts against the real data file. GitHub Actions to confirm on the pull request.
 - PR or commit: Closes issues #145, #146 and their tasks E1.1-E1.13 and E2.1-E2.9
+
+## Entry 11 — Order history retrieval and ownership
+
+- Student(s): Gillpreet Singh
+- Artifact: `backend/app/repositories/order_repository.py`, `backend/app/services/order_service.py`, `backend/app/api/routes/orders.py`, `backend/tests/routes/test_order_authorization.py`
+- Label: AI-ASSISTED
+- AI tool: Copilot
+- Purpose: Implement order retrieval by ID and by customer, enforce customer ownership on both endpoints, and add tests for unauthorized access.
+- Influence: Helped review the ownership checks and test structure. The repository and service functions already existed; the main additions were the 403 checks in the routes and the authorization tests.
+- Validation: `python -m pytest tests/routes/test_order_authorization.py` passes. Full backend suite also passes.
+
+## Entry 12 — Checkout order creation
+
+- Student(s): Gillpreet Singh
+- Artifact: `backend/app/services/checkout_service.py` (`checkout`), `backend/app/api/routes/checkout.py`, `backend/tests/service/test_checkout_service.py`
+- Label: AI-ASSISTED
+- AI tool: Copilot
+- Purpose: Implement the checkout service that creates an order from a validated cart, persists it, clears the cart only after success, adds the POST /customers/{customer_id}/checkout endpoint, and writes the service tests.
+- Influence: Helped with the checkout function structure, cart-clearing logic, route error handling, and test setup (including the temporary CartRepository monkeypatch). I reviewed the code, adjusted the repository handling so tests use the temp file, and ran the tests.
+- Validation: Full backend suite also passes
