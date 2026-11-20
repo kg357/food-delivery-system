@@ -28,3 +28,4 @@ Time: 2-4pm
 
 ### Goals For Next Meeting: 
 - Decide how to go about Milestone 2 and divide the work.
+- Note: We must add the push trigger (we currently only have the pull trigger). 
