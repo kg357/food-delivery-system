@@ -23,6 +23,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 import app.services.restaurant_service as restaurant_service
+from app.api.dependencies import get_current_user
 from app.api.routes import restaurants as restaurant_routes
 from app.main import app
 from app.schemas.restaurant import (
@@ -81,7 +82,19 @@ def restaurant_routes_client(monkeypatch, restaurant_data):
         isolated_load_by_id,
     )
 
-    return TestClient(app)
+    # Creating and editing now require a signed-in restaurant owner.
+    # These tests are about restaurant behavior, not login, so they
+    # act as the owner the tests below expect. Real token checks are
+    # tested in test_auth_routes.py.
+    app.dependency_overrides[get_current_user] = lambda: {
+        "id": "development_owner",
+        "role": "restaurant_owner",
+        "active": True,
+    }
+
+    yield TestClient(app)
+
+    app.dependency_overrides.clear()
 
 
 # ============================================================
