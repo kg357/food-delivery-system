@@ -9,20 +9,16 @@ A route that needs to know who is calling adds one parameter:
     def example(user: dict = Depends(get_current_user)):
         ...
 
-STUB NOTICE
------------
-For now, get_current_user ignores the request and returns a fixed fake
-customer. This lets the cart, checkout and order routes be built and
-tested before real authentication exists. Task E2.5 replaces the body of
-get_current_user with a real token check. The function keeps the same
-name and the same return shape, so no route that uses it has to change.
-
-Contract (agreed with the team):
+Contract (agreed with the team, unchanged since the stub):
     get_current_user()   -> {"id": str, "role": str, "active": bool}
     require_role(*roles) -> a dependency that returns the same user dict,
                             or raises HTTP 403 if the role is not allowed.
 
-Using a different user in a test:
+get_current_user reads the "Authorization: Bearer <token>" header:
+    no header, or a bad or expired token  -> 401
+    account deactivated                   -> 403
+
+Using a different user in a test (no token or customers file needed):
 
     app.dependency_overrides[get_current_user] = lambda: {
         "id": "owner-1",
@@ -35,49 +31,55 @@ Using a different user in a test:
 
 
 from fastapi import Depends, HTTPException, status
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
+from app.core.roles import ADMIN, CUSTOMER, RESTAURANT_OWNER
+from app.services.auth_service import get_user_from_token
 
-# ============================================================
-# Role Names
-# ============================================================
-
-# These are the only roles the backend uses. Import these constants
-# instead of typing the strings, so a typo is caught immediately.
-CUSTOMER = "customer"
-RESTAURANT_OWNER = "restaurant_owner"
-ADMIN = "admin"
-
-
-# ============================================================
-# Stub User
-# ============================================================
-
-# The fake user that get_current_user returns while it is a stub.
-_STUB_USER = {
-    "id": "dev-customer",
-    "role": CUSTOMER,
-    "active": True,
-}
+# Re-exported so existing code can keep importing the role names from
+# this module. They live in app.core.roles.
+__all__ = [
+    "ADMIN",
+    "CUSTOMER",
+    "RESTAURANT_OWNER",
+    "get_current_user",
+    "require_role",
+]
 
 
 # ============================================================
 # Dependencies
 # ============================================================
 
-def get_current_user() -> dict:
+# Reads the Authorization header. auto_error=False lets us return
+# 401 ourselves. FastAPI's docs page also uses this to show an
+# "Authorize" button.
+_bearer_scheme = HTTPBearer(auto_error=False)
+
+
+def get_current_user(
+    credentials: HTTPAuthorizationCredentials | None = Depends(
+        _bearer_scheme
+    ),
+) -> dict:
     """
     Return the user making the current request.
 
-    STUB: always returns a fixed fake customer. The real version
-    (task E2.5) reads the Authorization header, verifies the token,
-    and returns the same shape.
+    The user comes from the bearer token only, never from the request
+    body or URL.
 
-    Returns:
-        A dictionary with the keys "id" (str), "role" (str),
-        and "active" (bool).
+    Raises:
+        HTTPException: 401 if the token is missing, invalid or
+            expired; 403 if the account is deactivated.
     """
-    # Return a copy so a caller cannot change the shared stub user.
-    return dict(_STUB_USER)
+    if credentials is None:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Not authenticated.",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    return get_user_from_token(credentials.credentials)
 
 
 def require_role(*allowed_roles: str):
