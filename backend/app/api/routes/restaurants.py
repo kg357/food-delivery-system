@@ -11,12 +11,15 @@ This module defines HTTP endpoints for:
 Routes handle HTTP requests and responses, while restaurant
 business logic is delegated to the service layer.
 
-For Milestone 1, restaurant creation and editing use a fixed
-development owner ID rather than real authentication.
+Creating and editing a restaurant require a signed-in restaurant
+owner. The owner's ID comes from the login token, never from the
+request body.
 """
 
 
-from fastapi import APIRouter, Query, status
+from fastapi import APIRouter, Depends, Query, status
+
+from app.api.dependencies import RESTAURANT_OWNER, require_role
 
 from app.schemas.restaurant import (
     Restaurant,
@@ -108,23 +111,24 @@ def restaurant_details(restaurant_id: int):
         "The backend assigns its ID, owner ID, and initial rating."
     ),
 )
-def add_restaurant(restaurant_data: RestaurantCreate):
+def add_restaurant(
+    restaurant_data: RestaurantCreate,
+    user: dict = Depends(require_role(RESTAURANT_OWNER)),
+):
     """
     Create a restaurant using validated request data.
 
     RestaurantCreate prevents clients from supplying
     server-managed fields such as rating or owner_id.
 
+    The owner is the signed-in restaurant owner. Other roles get
+    403 and callers without a valid token get 401.
+
     HTTP 201 indicates that the restaurant was created.
     """
-
-    # Milestone 1 uses a fixed owner identity for demonstration.
-    # This is not a real authentication or authorization system.
-    owner_id = "development_owner"
-
     return create_restaurant(
         restaurant_data,
-        owner_id,
+        user["id"],
     )
 
 
@@ -145,6 +149,7 @@ def add_restaurant(restaurant_data: RestaurantCreate):
 def edit_restaurant(
     restaurant_id: int,
     update_data: RestaurantUpdate,
+    user: dict = Depends(require_role(RESTAURANT_OWNER)),
 ):
     """
     Update an existing restaurant using a partial request body.
@@ -152,14 +157,11 @@ def edit_restaurant(
     RestaurantUpdate validates editable fields and rejects
     protected fields such as ID, owner ID, and rating.
 
-    The service checks ownership before applying changes.
+    Only a signed-in restaurant owner may call this, and the
+    service checks that they own this restaurant (403 otherwise).
     """
-
-    # The demo owner must match the restaurant's stored owner ID.
-    owner_id = "development_owner"
-
     return update_restaurant(
         restaurant_id,
-        owner_id,
+        user["id"],
         update_data,
     )

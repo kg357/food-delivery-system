@@ -88,7 +88,7 @@ This is the team's shared record of AI contributions to project artifacts. Add a
 - Influence: Codex tested the cart changes using the team's JSON storage and shared identity dependency.
 - Validation: Ran the backend pytest suite. Test counts are recorded in the pull request.
 
-## Entry 8 — Shopping cart backend
+## Entry 9 — Shopping cart backend
 
 - Student(s): Kiran Grewal
 - Artifact: services/cart_service.py, api/routes/cart.py
@@ -97,3 +97,13 @@ This is the team's shared record of AI contributions to project artifacts. Add a
 - Purpose: Assisted with the service and route layer, providing ideas and explanations.
 - Influence: Service logic, FAST API endpoints
 - Validation: Ran the backend pytest suite. Test counts are recorded in the pull request.
+## Entry 10 — Customer accounts and authentication backend (E1.1-E1.13, E2.1-E2.9)
+
+- Student(s): Aleem Shaik
+- Artifact: `backend/app/core/security.py`, `backend/app/core/roles.py`, `backend/app/core/config.py`, `backend/app/core/identifiers.py` (`generate_customer_id`), `backend/app/schemas/customer.py`, `backend/app/schemas/auth.py`, `backend/app/repositories/customer_repository.py`, `backend/app/services/customer_service.py`, `backend/app/services/auth_service.py`, `backend/app/api/routes/customers.py`, `backend/app/api/routes/auth.py`, `backend/app/api/dependencies.py` (real `get_current_user`), `backend/app/api/routes/restaurants.py` (owner from the token), `backend/data/customers.json` (demo accounts), `backend/requirements.txt` (`bcrypt`, `PyJWT`), and the new tests under `backend/tests/`
+- Label: AI-GENERATED
+- AI tool: Claude
+- Purpose: Generate customer registration, retrieval, update and deactivation, bcrypt password hashing, JWT login, the real `get_current_user`, role and ownership checks, and replacing the hard-coded `development_owner` in the restaurant routes, plus tests for all of it.
+- Influence: Helped with code generation, following the structure and style of the team's existing route / service / repository layers. I chose the plan (JWT with bcrypt, the endpoint paths, 401 versus 403, deactivation keeps the record), reviewed each layer with the AI explaining it, and ran the tests.
+- Validation: `python -m pytest` passes locally (229 passed). Logged in as the demo owner and admin accounts against the real data file. GitHub Actions to confirm on the pull request.
+- PR or commit: Closes issues #145, #146 and their tasks E1.1-E1.13 and E2.1-E2.9

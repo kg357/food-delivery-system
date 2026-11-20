@@ -7,6 +7,7 @@ write restaurant and menu information stored in JSON files.
 """
 
 
+import os
 from pathlib import Path
 
 
@@ -38,3 +39,24 @@ ORDERS_FILE = DATA_DIR / "orders.json"
 
 # Active shopping carts keyed by customer ID.
 CARTS_FILE = DATA_DIR / "carts.json"
+# Customer and staff accounts, including hashed passwords.
+CUSTOMERS_FILE = DATA_DIR / "customers.json"
+
+
+# ============================================================
+# Authentication Settings
+# ============================================================
+
+# Secret used to sign login tokens. Anyone who knows it can forge a
+# token, so real deployments must set the JWT_SECRET environment
+# variable. The default below only exists so the project runs locally.
+JWT_SECRET = os.environ.get(
+    "JWT_SECRET",
+    "development-only-secret-change-before-deploying",
+)
+
+# HS256 signs and verifies tokens with the same secret.
+JWT_ALGORITHM = "HS256"
+
+# How long a login token stays valid, in minutes.
+ACCESS_TOKEN_EXPIRE_MINUTES = 60
