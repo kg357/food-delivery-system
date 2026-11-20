@@ -76,6 +76,12 @@ def generate_order_id() -> str:
     """
     return str(uuid4())
 
+
+def generate_cart_id() -> str:
+    """Generate a UUID string for a new active cart."""
+    return str(uuid4())
+
+    
 def generate_customer_id() -> str:
     """
     Generate a new customer identifier.

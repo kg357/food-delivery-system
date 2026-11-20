@@ -17,12 +17,14 @@ at /docs and an OpenAPI specification at /openapi.json.
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.routes.cart import cart_error_response, router as cart_router
 from app.api.routes.auth import router as auth_router
 from app.api.routes.customers import router as customer_router
 from app.api.routes.health import router as health_router
 from app.api.routes.menu import router as menu_router
 from app.api.routes.restaurants import router as restaurant_router
 from app.api.routes.orders import (router as order_router)
+from app.services.cart_service import CartError
 
 
 # ============================================================
@@ -74,5 +76,7 @@ app.include_router(health_router)
 app.include_router(restaurant_router)
 app.include_router(menu_router)
 app.include_router(order_router)
+app.include_router(cart_router)
+app.add_exception_handler(CartError, cart_error_response)
 app.include_router(customer_router)
 app.include_router(auth_router)

@@ -78,7 +78,26 @@ This is the team's shared record of AI contributions to project artifacts. Add a
 - Validation: Ran `python -m pytest` locally (135 passed); GitHub Actions to confirm on the pull request.
 - PR or commit: Closes issue #147
 
-## Entry 8 — Customer accounts and authentication backend (E1.1-E1.13, E2.1-E2.9)
+## Entry 8 — Shopping cart backend tests
+
+- Student(s): Kiran Grewal
+- Artifact: test_cart_routes, test_cart_service
+- Label: AI-GENERATED
+- AI tool: OpenAI Codex
+- Purpose: Aided with the the tests for the route and service layer
+- Influence: Codex tested the cart changes using the team's JSON storage and shared identity dependency.
+- Validation: Ran the backend pytest suite. Test counts are recorded in the pull request.
+
+## Entry 9 — Shopping cart backend
+
+- Student(s): Kiran Grewal
+- Artifact: services/cart_service.py, api/routes/cart.py
+- Label: AI-ASSISTED
+- AI tool: OpenAI Codex
+- Purpose: Assisted with the service and route layer, providing ideas and explanations.
+- Influence: Service logic, FAST API endpoints
+- Validation: Ran the backend pytest suite. Test counts are recorded in the pull request.
+## Entry 10 — Customer accounts and authentication backend (E1.1-E1.13, E2.1-E2.9)
 
 - Student(s): Aleem Shaik
 - Artifact: `backend/app/core/security.py`, `backend/app/core/roles.py`, `backend/app/core/config.py`, `backend/app/core/identifiers.py` (`generate_customer_id`), `backend/app/schemas/customer.py`, `backend/app/schemas/auth.py`, `backend/app/repositories/customer_repository.py`, `backend/app/services/customer_service.py`, `backend/app/services/auth_service.py`, `backend/app/api/routes/customers.py`, `backend/app/api/routes/auth.py`, `backend/app/api/dependencies.py` (real `get_current_user`), `backend/app/api/routes/restaurants.py` (owner from the token), `backend/data/customers.json` (demo accounts), `backend/requirements.txt` (`bcrypt`, `PyJWT`), and the new tests under `backend/tests/`

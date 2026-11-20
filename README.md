@@ -148,12 +148,21 @@ Pydantic schemas define the structure and validation requirements for restaurant
 This separation helps keep the application maintainable, testable, and easier to extend.
 
 ## API Endpoints
-The backend exposes nine endpoints.
-
 ### Health
 | Method | Endpoint | Description |
 |---|---|---|
 | GET | `/health` | Confirm the backend is responding |
+
+### Shopping Cart
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/customers/{customer_id}/cart` | Retrieve or create the customer's active cart |
+| POST | `/customers/{customer_id}/cart/items` | Add an item with `restaurant_id`, `item_id`, and optional `quantity` (default 1) |
+| PATCH | `/customers/{customer_id}/cart/items/{item_id}` | Set the item's `quantity` |
+| DELETE | `/customers/{customer_id}/cart/items/{item_id}` | Remove an item |
+| DELETE | `/customers/{customer_id}/cart/items` | Clear the cart |
+
 
 ### Restaurants
 | Method | Endpoint | Description |

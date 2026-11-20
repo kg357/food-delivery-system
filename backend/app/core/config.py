@@ -36,6 +36,9 @@ MENU_ITEMS_FILE = DATA_DIR / "menu_items.json"
 
 # Order records, including customer information and order details.
 ORDERS_FILE = DATA_DIR / "orders.json"
+
+# Active shopping carts keyed by customer ID.
+CARTS_FILE = DATA_DIR / "carts.json"
 # Customer and staff accounts, including hashed passwords.
 CUSTOMERS_FILE = DATA_DIR / "customers.json"
 
