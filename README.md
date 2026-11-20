@@ -148,12 +148,26 @@ Pydantic schemas define the structure and validation requirements for restaurant
 This separation helps keep the application maintainable, testable, and easier to extend.
 
 ## API Endpoints
-The backend exposes nine endpoints.
-
 ### Health
 | Method | Endpoint | Description |
 |---|---|---|
 | GET | `/health` | Confirm the backend is responding |
+
+### Shopping Cart
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/customers/{customer_id}/cart` | Retrieve or create the customer's active cart |
+| POST | `/customers/{customer_id}/cart/items` | Add an item with `restaurant_id`, `item_id`, and optional `quantity` (default 1) |
+| PATCH | `/customers/{customer_id}/cart/items/{item_id}` | Set the item's `quantity` |
+| DELETE | `/customers/{customer_id}/cart/items/{item_id}` | Remove an item |
+| DELETE | `/customers/{customer_id}/cart/items` | Clear the cart |
+
+All five endpoints return the full cart. Create or retrieve the cart with GET before modifying it. The current shared identity dependency supplies `dev-customer` in local development. Routes check the customer role, account status, and ownership against that dependency.
+
+Carts persist in `backend/data/carts.json`. Each customer has one active cart, and each nonempty cart holds items from one restaurant. Adding the same item combines quantities and refreshes that line's menu price. Clearing the cart or removing its last item releases the restaurant association and keeps the cart ID.
+
+The backend rounds menu prices to cents and returns monetary amounts as decimal strings such as `"10.00"`. The total currently equals the subtotal. Invalid quantities return 422. A missing cart, restaurant, or item returns 404. An unavailable item or a different restaurant returns 409. A forbidden customer or role returns 403.
 
 ### Restaurants
 | Method | Endpoint | Description |

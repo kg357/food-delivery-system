@@ -77,3 +77,13 @@ This is the team's shared record of AI contributions to project artifacts. Add a
 - Influence: Helped with code generation. I created the issue and branch, chose the contract the team shares (`{id, role, active}`) and ran the tests; the AI explained how FastAPI dependencies work.
 - Validation: Ran `python -m pytest` locally (135 passed); GitHub Actions to confirm on the pull request.
 - PR or commit: Closes issue #147
+
+## Entry 8 — Shopping cart backend (F1.1–F1.10 and F2.1–F2.11)
+
+- Student(s): Member 2
+- Artifact: Shopping cart schemas, repository, service, FastAPI routes, tests, and API documentation.
+- Label: AI-GENERATED
+- AI tool: OpenAI Codex
+- Purpose: Implement the cart backend against the Milestone 2 task list supplied by Member 2.
+- Influence: Codex implemented and tested the cart changes using the team's JSON storage and shared identity dependency.
+- Validation: Ran the backend pytest suite. Test counts are recorded in the pull request.
