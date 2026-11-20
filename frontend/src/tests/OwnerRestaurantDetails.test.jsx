@@ -2,7 +2,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Routes, Route } from "react-router-dom";
-import { afterEach, expect, test, vi } from "vitest";
+import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import OwnerRestaurantDetails from "../pages/OwnerRestaurantDetails/OwnerRestaurantDetails";
 
 const restaurant = {
@@ -14,8 +14,21 @@ const restaurant = {
   rating: 0,
 };
 
+// These pages show the restaurants of whoever is signed in, so every
+// test starts signed in as the owner "development_owner".
+beforeEach(() => {
+  sessionStorage.setItem(
+    "session",
+    JSON.stringify({
+      token: "test-token",
+      user: { id: "development_owner", role: "restaurant_owner" },
+    })
+  );
+});
+
 afterEach(() => {
   vi.unstubAllGlobals();
+  sessionStorage.clear();
 });
 
 test("owner can edit restaurant information", async () => {
@@ -129,7 +142,7 @@ test("owner cannot edit a restaurant belonging to another owner", async () => {
   expect(
     await screen.findByRole("alert")
   ).toHaveTextContent(
-    "This restaurant does not belong to the demo owner."
+    "This restaurant does not belong to you."
   );
 
   expect(

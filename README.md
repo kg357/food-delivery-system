@@ -25,8 +25,8 @@
 An administrator demonstration entry point is included, but administrative functionality has not yet been implemented.
 
 ### Current Scope and Limitations
-- **Authentication:** Real authentication and account management have not been implemented. Demonstration roles are used for frontend navigation.
-- **Restaurant & menu ownership:** Restaurant & menu creation and editing currently use the fixed development owner ID `development_owner`.
+- **Authentication:** Customers can register, sign in, view and edit their account, and deactivate it. Sign-in returns a token that the frontend sends with requests. Restaurant creation and editing require a signed-in restaurant owner, and the backend enforces roles and account ownership.
+- **Restaurant ownership:** A restaurant belongs to the owner who created it. Owners see and edit only their own restaurants. Menu-item routes are not protected yet.
 - **Ordering and payments:** Customer ordering, checkout, payments, and delivery tracking are outside the current implementation.
 
 ## Prerequisites
@@ -111,6 +111,18 @@ The frontend will normally be available at:
 Open this address in your browser to access the application.
 
 **Important:** Both the backend and frontend servers must be running for the application to work correctly.
+
+### Demonstration Accounts
+
+These accounts exist in `backend/data/customers.json`. The "Example" buttons on the login page sign in with them.
+
+| Role | Email | Password |
+|---|---|---|
+| Customer | `customer@example.com` | `CustomerDemo123` |
+| Restaurant owner (owns restaurant 1) | `owner@example.com` | `OwnerDemo123` |
+| Administrator | `admin@example.com` | `AdminDemo123` |
+
+These passwords are for local demonstration only. You can also create a new customer account from the login page. Before deploying anywhere real, set the `JWT_SECRET` environment variable and remove the demo accounts.
 
 ## Backend Architecture
 The backend follows a layered architecture:
