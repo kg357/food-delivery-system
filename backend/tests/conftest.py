@@ -15,7 +15,11 @@ These fixtures provide:
 
 import json
 
+import bcrypt
 import pytest
+
+from app.core import config
+from app.core.security import create_access_token, hash_password
 
 
 # ============================================================
@@ -154,3 +158,87 @@ def data_files(tmp_path, restaurant_data, menu_data):
 
     # Return both paths so tests can access the files.
     return restaurants_file, menu_items_file
+
+
+# ============================================================
+# Accounts and Login Tokens
+# ============================================================
+
+@pytest.fixture(autouse=True)
+def fast_password_hashing(monkeypatch):
+    """
+    Make bcrypt cheap in tests.
+
+    bcrypt is deliberately slow (about 0.2 seconds per hash). Using
+    the minimum cost factor keeps the test suite fast. The hashing
+    logic is the same; only the amount of work is smaller.
+    """
+    real_gensalt = bcrypt.gensalt
+
+    monkeypatch.setattr(
+        bcrypt,
+        "gensalt",
+        lambda rounds=4, **kwargs: real_gensalt(rounds=rounds, **kwargs),
+    )
+
+
+@pytest.fixture
+def customers_file(tmp_path, monkeypatch):
+    """
+    Point the whole application at an empty temporary customers file.
+
+    The real backend/data/customers.json is never touched.
+    """
+    path = tmp_path / "customers.json"
+    path.write_text("[]", encoding="utf-8")
+
+    monkeypatch.setattr(config, "CUSTOMERS_FILE", path)
+
+    return path
+
+
+@pytest.fixture
+def add_account(customers_file):
+    """
+    Return a function that writes an account straight into the file.
+
+    This skips registration, so tests can create owners, admins and
+    deactivated accounts, which registration cannot make.
+    """
+
+    def _add(
+        account_id="customer-1",
+        email=None,
+        password="Password123",
+        role="customer",
+        active=True,
+        name="Test User",
+    ):
+        record = {
+            "id": account_id,
+            "name": name,
+            "email": email or f"{account_id}@example.com",
+            "address": None,
+            "role": role,
+            "active": active,
+            "password_hash": hash_password(password),
+        }
+
+        accounts = json.loads(customers_file.read_text(encoding="utf-8"))
+        accounts.append(record)
+        customers_file.write_text(json.dumps(accounts), encoding="utf-8")
+
+        return record
+
+    return _add
+
+
+@pytest.fixture
+def auth_headers():
+    """Return a function that builds a valid Authorization header."""
+
+    def _headers(user_id, role="customer"):
+        token = create_access_token(user_id, role)
+        return {"Authorization": f"Bearer {token}"}
+
+    return _headers

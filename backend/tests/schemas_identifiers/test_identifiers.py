@@ -147,3 +147,16 @@ def test_generate_order_ids_are_unique():
     second_id = generate_order_id()
 
     assert first_id != second_id
+
+# ============================================================
+# Customer IDs
+# ============================================================
+
+def test_generate_customer_id_returns_a_unique_string():
+    from app.core.identifiers import generate_customer_id
+
+    first = generate_customer_id()
+    second = generate_customer_id()
+
+    assert isinstance(first, str)
+    assert first != second
