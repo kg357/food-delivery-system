@@ -66,3 +66,14 @@ This is the team's shared record of AI contributions to project artifacts. Add a
 - Influence: Quickly reorganize code into a standardized formatting and add comments. I manually reviewed each edit and added them myself in VS Code. 
 - Validation: Ran python -m pytest locally after every change to verify no functionality was lost. 
 - PR or commit: 
+
+## Entry 7 — Authentication stub (E2.13)
+
+- Student(s): Aleem Shaik
+- Artifact: `backend/app/api/dependencies.py` (`get_current_user`, `require_role`), `backend/tests/routes/test_auth_dependencies.py`
+- Label: AI-GENERATED
+- AI tool: Claude
+- Purpose: Generate a temporary `get_current_user` dependency (returns a fixed fake customer) and a `require_role` dependency, so teammates can build cart, checkout and order routes before real authentication exists, plus tests for both.
+- Influence: Helped with code generation. I created the issue and branch, chose the contract the team shares (`{id, role, active}`) and ran the tests; the AI explained how FastAPI dependencies work.
+- Validation: Ran `python -m pytest` locally (135 passed); GitHub Actions to confirm on the pull request.
+- PR or commit: Closes issue #147
