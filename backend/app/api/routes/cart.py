@@ -22,7 +22,7 @@ async def cart_error_response(request: Request, error: CartError) -> JSONRespons
 
 def get_cart_service() -> CartService:
     return CartService(CartRepository())
-s
+
 Customer = Annotated[dict, Depends(require_role(CUSTOMER))]
 Service = Annotated[CartService, Depends(get_cart_service)]
 
