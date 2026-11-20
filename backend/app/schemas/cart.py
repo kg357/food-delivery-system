@@ -3,11 +3,9 @@ from typing import Annotated
 
 from pydantic import BaseModel, ConfigDict, Field, computed_field
 
-
 MAX_QUANTITY = 2_147_483_647
 Quantity = Annotated[int, Field(strict=True, gt=0, le=MAX_QUANTITY)]
 Money = Annotated[Decimal, Field(ge=0, allow_inf_nan=False)]
-
 
 class CartItemCreate(BaseModel):
     model_config = ConfigDict(extra="forbid")
@@ -16,12 +14,10 @@ class CartItemCreate(BaseModel):
     item_id: str = Field(min_length=1)
     quantity: Quantity = 1
 
-
 class CartQuantityUpdate(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     quantity: Quantity
-
 
 class CartItem(BaseModel):
     item_id: str
@@ -33,7 +29,6 @@ class CartItem(BaseModel):
     @property
     def total_price(self) -> Decimal:
         return self.unit_price * self.quantity
-
 
 class Cart(BaseModel):
     id: str

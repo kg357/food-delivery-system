@@ -1,14 +1,11 @@
-"""Persist active carts keyed by customer ID."""
-
 import json
 from collections.abc import Callable
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 
-from filelock import FileLock
-
 from app.core.config import CARTS_FILE
 from app.schemas.cart import Cart
+from filelock import FileLock
 
 
 class CartRepository:
@@ -29,7 +26,6 @@ class CartRepository:
         return Cart.model_validate(record) if record is not None else None
 
     def change(self, customer_id: str, update: Callable[[Cart | None], Cart]) -> Cart:
-        """Run a read–modify–write transaction under a cross-process lock."""
         with self.lock:
             records = self._load()
             record = records.get(customer_id)

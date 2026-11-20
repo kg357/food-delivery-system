@@ -78,12 +78,22 @@ This is the team's shared record of AI contributions to project artifacts. Add a
 - Validation: Ran `python -m pytest` locally (135 passed); GitHub Actions to confirm on the pull request.
 - PR or commit: Closes issue #147
 
-## Entry 8 — Shopping cart backend (F1.1–F1.10 and F2.1–F2.11)
+## Entry 8 — Shopping cart backend tests
 
 - Student(s): Kiran Grewal
-- Artifact: Shopping cart backend implementation, including Pydantic request/response schemas, JSON-based repository, business logic service, FastAPI endpoints, automated pytest tests, and API documentation.
+- Artifact: test_cart_routes, test_cart_service
 - Label: AI-GENERATED
 - AI tool: OpenAI Codex
-- Purpose: Implement the shopping cart backend requirements (F1.1–F1.10 and F2.1–F2.11) while maintaining consistency with the team's existing architecture.
-- Influence: Codex implemented and tested the cart changes using the team's JSON storage and shared identity dependency.
+- Purpose: Aided with the the tests for the route and service layer
+- Influence: Codex tested the cart changes using the team's JSON storage and shared identity dependency.
+- Validation: Ran the backend pytest suite. Test counts are recorded in the pull request.
+
+## Entry 8 — Shopping cart backend
+
+- Student(s): Kiran Grewal
+- Artifact: services/cart_service.py, api/routes/cart.py
+- Label: AI-ASSISTED
+- AI tool: OpenAI Codex
+- Purpose: Assisted with the service and route layer, providing ideas and explanations.
+- Influence: Service logic, FAST API endpoints
 - Validation: Ran the backend pytest suite. Test counts are recorded in the pull request.

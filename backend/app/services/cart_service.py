@@ -1,32 +1,27 @@
-"""Cart business rules and coordination with the restaurant menu."""
-
 from collections.abc import Callable
-from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
+from decimal import ROUND_HALF_UP, Decimal, InvalidOperation
 from pathlib import Path
 
 from app.core.config import MENU_ITEMS_FILE, RESTAURANTS_FILE
 from app.core.identifiers import generate_cart_id
 from app.repositories.cart_repository import CartRepository
-from app.schemas.cart import MAX_QUANTITY, Cart, CartItem, CartItemCreate, CartQuantityUpdate
+from app.schemas.cart import (
+    MAX_QUANTITY,
+    Cart,
+    CartItem,
+    CartItemCreate,
+    CartQuantityUpdate,
+)
 from app.services.menu_service import get_menu_item_for_restaurant
-
 
 class CartError(ValueError):
     pass
-
-
 class CartNotFound(CartError):
     pass
-
-
 class CartConflict(CartError):
     pass
-
-
 class CartForbidden(CartError):
     pass
-
-
 class CartService:
     def __init__(
         self,

@@ -2,10 +2,8 @@ import json
 from concurrent.futures import ThreadPoolExecutor
 
 import pytest
-
 from app.repositories.cart_repository import CartRepository
 from app.schemas.cart import Cart
-
 
 def test_cart_survives_repository_recreation(tmp_path):
     path = tmp_path / "carts.json"
@@ -16,7 +14,6 @@ def test_cart_survives_repository_recreation(tmp_path):
     repository.change("customer-1", lambda existing: cart)
     assert CartRepository(path).get("customer-1") == cart
     assert "subtotal" not in json.loads(path.read_text())["customer-1"]
-
 
 def test_concurrent_creates_keep_one_cart_per_customer(tmp_path):
     path = tmp_path / "carts.json"
@@ -32,7 +29,6 @@ def test_concurrent_creates_keep_one_cart_per_customer(tmp_path):
 
     assert len({cart.id for cart in carts}) == 1
     assert set(json.loads(path.read_text())) == {"customer-1"}
-
 
 def test_failed_replace_preserves_existing_data(tmp_path, monkeypatch):
     path = tmp_path / "carts.json"

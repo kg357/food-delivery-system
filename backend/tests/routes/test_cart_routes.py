@@ -1,16 +1,13 @@
 import pytest
-from fastapi.testclient import TestClient
-
 from app.api.dependencies import get_current_user
 from app.api.routes.cart import get_cart_service
 from app.main import app
 from app.repositories.cart_repository import CartRepository
 from app.services.cart_service import CartService
-
+from fastapi.testclient import TestClient
 
 URL = "/customers/alice/cart"
 ITEM = {"restaurant_id": 1, "item_id": "item-a", "quantity": 2}
-
 
 @pytest.fixture
 def cart_api(tmp_path, data_files, monkeypatch):
@@ -20,7 +17,6 @@ def cart_api(tmp_path, data_files, monkeypatch):
     monkeypatch.setitem(app.dependency_overrides, get_cart_service, lambda: service)
     with TestClient(app) as client:
         yield client, user
-
 
 def test_cart_api_lifecycle(cart_api):
     client, _ = cart_api
@@ -54,7 +50,6 @@ def test_cart_api_lifecycle(cart_api):
     assert client.delete(f"{URL}/items").json() == empty.json()
     assert client.delete(f"{URL}/items").json() == empty.json()
 
-
 @pytest.mark.parametrize(
     ("method", "suffix", "body"),
     [
@@ -78,7 +73,6 @@ def test_cart_endpoints_reject_other_inactive_or_wrong_role_users(
     user.update(owner)
     assert client.get(URL).json() == original
 
-
 @pytest.mark.parametrize("quantity", [0, -1, 1.5, "2", True, None, 2_147_483_648])
 def test_cart_api_rejects_invalid_quantities(cart_api, quantity):
     client, _ = cart_api
@@ -89,7 +83,6 @@ def test_cart_api_rejects_invalid_quantities(cart_api, quantity):
         f"{URL}/items/item-a", json={"quantity": quantity}
     ).status_code == 422
     assert client.get(URL).json() == original
-
 
 def test_cart_api_returns_business_rule_errors(cart_api):
     client, _ = cart_api
