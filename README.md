@@ -12,6 +12,10 @@
 - Browse a restaurant's menu, including item availability.
 - View individual menu item details.
 - Navigate between restaurant listings, restaurant details, and menu items.
+- Add items to a shopping cart
+- Upload quantities, remove items, and clear the cart
+- Checkout a cart into and order
+- View order history and individual order details
 
 ### Restaurant Owner Features
 - Access the restaurant owner interface.
@@ -163,6 +167,16 @@ This separation helps keep the application maintainable, testable, and easier to
 | DELETE | `/customers/{customer_id}/cart/items/{item_id}` | Remove an item |
 | DELETE | `/customers/{customer_id}/cart/items` | Clear the cart |
 
+### Checkout
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/customers/{customer_id}/checkout` | Create an order from the customer's cart. Cart is cleared only after the order is successfully saved. |
+
+### Orders
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/orders/{order_id}` | Retrieve a single order (owner only)
+| GET | `/customers/{customer_id}/orders` | Retrieve the customer's order history (owner only)
 
 ### Restaurants
 | Method | Endpoint | Description |
@@ -220,6 +234,9 @@ The backend stores representative data in:
 ```text
 backend/data/restaurants.json
 backend/data/menu_items.json
+backend/data/carts.json
+backend/data/orders.json
+backend/data/customers.json
 ```
 
 Restaurant records contain:
@@ -321,16 +338,30 @@ food-delivery-system/
 │   │   │   └── routes/
 │   │   │       ├── health.py
 │   │   │       ├── menu.py
-│   │   │       └── restaurants.py
+│   │   │       ├── restaurants.py
+│   │   │       ├── auth.py
+│   │   │       ├── cart.py
+│   │   │       ├── checkout.py
+│   │   │       ├── customers.py
+│   │   │       └── orders.py
 │   │   ├── core/
 │   │   │   ├── config.py
-│   │   │   └── identifiers.py
+│   │   │   ├── identifiers.py
+│   │   │   ├── roles.py
+│   │   │   └── security.py
 │   │   ├── repositories/
 │   │   │   ├── menu_repository.py
-│   │   │   └── restaurant_repository.py
+│   │   │   ├── restaurant_repository.py
+│   │   │   ├── cart_repository.py
+│   │   │   ├── customer_repository.py
+│   │   │   └── order_repository.py
 │   │   ├── schemas/
 │   │   │   ├── menu_item.py
-│   │   │   └── restaurant.py
+│   │   │   ├── restaurant.py
+│   │   │   ├── auth.py
+│   │   │   ├── cart.py
+│   │   │   ├── customer.py
+│   │   │   └── order.py
 │   │   ├── scrum/
 │   │   │   ├── 09-29-lab-minutes.md
 │   │   │   ├── 10-01-meeting-minutes.md
@@ -338,11 +369,19 @@ food-delivery-system/
 │   │   │   ├── 10-13-lab-minutes.md
 │   │   │   └── team-agreement.md
 │   │   ├── services/
+│   │   │   ├── auth_service.py
+│   │   │   ├── cart_service.py
+│   │   │   ├── checkout_service.py
+│   │   │   ├── customer_service.py
 │   │   │   ├── menu_service.py
+│   │   │   ├── order_service.py
 │   │   │   └── restaurant_service.py
 │   │   └── main.py
 │   ├── data/
+│   │   ├── carts.json
+│   │   ├── customers.json
 │   │   ├── menu_items.json
+│   │   ├── orders.json
 │   │   └── restaurants.json
 │   ├── tests/
 │   │   ├── conftest.py
