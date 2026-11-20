@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field
 
+
 class OrderItem(BaseModel):
     item_id: str
     name: str
