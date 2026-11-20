@@ -88,3 +88,14 @@ This is the team's shared record of AI contributions to project artifacts. Add a
 - Influence: Helped with code generation, following the structure and style of the team's existing route / service / repository layers. I chose the plan (JWT with bcrypt, the endpoint paths, 401 versus 403, deactivation keeps the record), reviewed each layer with the AI explaining it, and ran the tests.
 - Validation: `python -m pytest` passes locally (229 passed). Logged in as the demo owner and admin accounts against the real data file. GitHub Actions to confirm on the pull request.
 - PR or commit: Closes issues #145, #146 and their tasks E1.1-E1.13 and E2.1-E2.9
+
+## Entry 9 — Account and login UI (E1.14, E1.15, E2.10, E2.11, E1.16, E2.12)
+
+- Student(s): Aleem Shaik
+- Artifact: `frontend/src/api/auth.js`, `frontend/src/api/restaurants.js` (token header), `frontend/src/pages/Login/`, `frontend/src/pages/Register/`, `frontend/src/pages/Account/`, `frontend/src/pages/OwnerDashboard/OwnerDashboard.jsx` and `frontend/src/pages/OwnerRestaurantDetails/OwnerRestaurantDetails.jsx` (signed-in owner instead of `development_owner`), `frontend/src/App.jsx`, `frontend/src/pages/RestaurantList/RestaurantList.jsx`, the new tests under `frontend/src/tests/`, `backend/data/customers.json` (demo customer), `README.md`
+- Label: AI-GENERATED
+- AI tool: Claude
+- Purpose: Generate the registration, login and account pages and the API calls behind them, connect the token to the restaurant requests, and write the frontend tests for them.
+- Influence: Helped with code generation, following the structure and style of the team's existing frontend. I chose how login, the token and the account page should behave, reviewed the code, and ran the app and tests.
+- Validation: `npx vitest run` passes all 45 tests (16 new). Manual browser check of register, login, account, sign out and creating a restaurant against the running backend: to be recorded here by the student before merge.
+- PR or commit: Closes issues #157, #158, #159, #173, #174, #175

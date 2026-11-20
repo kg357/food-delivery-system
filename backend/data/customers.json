@@ -1,5 +1,14 @@
 [
   {
+    "id": "demo-customer",
+    "name": "Demo Customer",
+    "email": "customer@example.com",
+    "address": "1 Demo Street",
+    "role": "customer",
+    "active": true,
+    "password_hash": "$2b$12$4TJ9tDjE4EjHB06KNBqGG.Ez1hwLtbcqhfFxXaWw.Ok6ErGzFqyHG"
+  },
+  {
     "id": "owner1",
     "name": "Demo Restaurant Owner",
     "email": "owner@example.com",

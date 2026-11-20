@@ -1,7 +1,7 @@
 
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { afterEach, expect, test, vi } from "vitest";
+import { afterEach, beforeEach, expect, test, vi } from "vitest";
 import OwnerDashboard from "../pages/OwnerDashboard/OwnerDashboard";
 
 const restaurants = [
@@ -39,8 +39,21 @@ function renderDashboard() {
   );
 }
 
+// These pages show the restaurants of whoever is signed in, so every
+// test starts signed in as the owner "development_owner".
+beforeEach(() => {
+  sessionStorage.setItem(
+    "session",
+    JSON.stringify({
+      token: "test-token",
+      user: { id: "development_owner", role: "restaurant_owner" },
+    })
+  );
+});
+
 afterEach(() => {
   vi.unstubAllGlobals();
+  sessionStorage.clear();
 });
 
 test("displays only restaurants owned by the demo owner", async () => {

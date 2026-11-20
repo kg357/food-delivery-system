@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import RestaurantCard from "../../components/RestaurantCard/RestaurantCard"
 import Loading from "../../components/Loading/Loading"
 import { getRestaurants } from "../../api/restaurants"
+import { logout } from "../../api/auth"
 import "./RestaurantList.css"
 
 function RestaurantList() {
@@ -69,9 +70,13 @@ function RestaurantList() {
             <Link
                 to="/"
                 className="back-to-login"
-                onClick={() => sessionStorage.removeItem("demoRole")}
+                onClick={logout}
             >
-                ← Back to Login
+                ← Sign out
+            </Link>
+            {" · "}
+            <Link to="/account" className="back-to-login">
+                My Account
             </Link>
 
             <h1>Restaurants</h1>

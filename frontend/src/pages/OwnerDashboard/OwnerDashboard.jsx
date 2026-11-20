@@ -1,12 +1,14 @@
 
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getCurrentUser, logout } from "../../api/auth";
 import { getRestaurants } from "../../api/restaurants";
 import "./OwnerDashboard.css";
 
-const DEMO_OWNER_ID = "development_owner";
-
 function OwnerDashboard() {
+  // The restaurants shown are the ones owned by whoever is signed in.
+  const ownerId = getCurrentUser()?.id;
+
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -20,7 +22,7 @@ getRestaurants()
     if (active) {
       const ownedRestaurants = data.filter(
         (restaurant) =>
-          restaurant.owner_id === DEMO_OWNER_ID
+          restaurant.owner_id === ownerId
       );
 
       setRestaurants(ownedRestaurants);
@@ -44,7 +46,9 @@ getRestaurants()
     <main className="owner-page">
       <header className="owner-header">
         <div>
-          <Link to="/">← Back to Login</Link>
+          <Link to="/" onClick={logout}>← Sign out</Link>
+          {" · "}
+          <Link to="/account">My Account</Link>
           <h1>My Restaurants</h1>
           <p>Manage your restaurants and their menus.</p>
         </div>
