@@ -1,9 +1,13 @@
 from decimal import ROUND_HALF_UP, Decimal
 
 from app.api.dependencies import CUSTOMER
+from app.core.identifiers import generate_order_id
 from app.repositories.cart_repository import (
     CartRepository,
 )
+from app.repositories.order_repository import create_order
+from app.schemas.order import Order
+from app.services.cart_service import CartService
 from app.services.menu_service import (
     get_menu_item_for_restaurant,
 )
@@ -46,9 +50,6 @@ def validate_checkout(
             "You do not own this cart"
         )
 
-    # =====================================
-    # G1.2
-    # =====================================
 
     repository = CartRepository()
 
@@ -66,20 +67,12 @@ def validate_checkout(
             "Cannot checkout an empty cart"
         )
 
-    # =====================================
-    # G1.3
-    # =====================================
-
     if cart.restaurant_id is None:
 
         raise CheckoutValidationError(
             "Cart restaurant missing"
         )
 
-    # =====================================
-    # G1.4
-    # G1.5
-    # =====================================
 
     subtotal = Decimal("0.00")
 
@@ -162,3 +155,43 @@ def validate_checkout(
         "total":
             float(total),
     }
+
+
+def checkout(
+    customer_id: str,
+    user: dict,
+    cart_service: CartService | None = None,
+) -> Order:
+    """
+    G1.9–G1.12, G1.14
+    Validate the cart, create and persist an order with historical data,
+    clear the cart only after successful persistence, and return the order.
+    """
+    if cart_service is None:
+        cart_service = CartService(CartRepository())
+
+    # G1.1–G1.5 (your existing validation + historical snapshot)
+    validated = validate_checkout(customer_id, user)
+
+    order_data = {
+        "id": generate_order_id(),
+        "customer_id": validated["customer_id"],
+        "restaurant_id": validated["restaurant_id"],
+        "items": validated["items"],
+        "subtotal": validated["subtotal"],
+        "total": validated["total"],
+    }
+
+    # G1.11 – persist first
+    try:
+        create_order(order_data)
+    except Exception as error:
+        raise CheckoutValidationError(
+            f"Failed to save order: {error}"
+        ) from error
+
+    # G1.12 – clear cart only after success
+    cart_service.clear(customer_id, user)
+
+    # G1.14
+    return Order(**order_data)
