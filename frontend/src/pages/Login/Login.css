@@ -126,3 +126,19 @@
     padding: 24px;
   }
 }
+
+.login-card .login-register {
+  margin-top: 14px;
+  text-align: center;
+}
+
+.login-card .login-register a {
+  color: #c05621;
+  font-weight: 600;
+}
+
+.login-submit:disabled,
+.demo-options button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

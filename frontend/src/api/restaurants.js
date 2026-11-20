@@ -1,3 +1,5 @@
+import { authHeaders } from "./auth";
+
 const API_BASE = "http://localhost:8000";
 
 export async function getRestaurants() {
@@ -31,6 +33,7 @@ export async function createRestaurant(restaurantData) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        ...authHeaders(),
       },
       body: JSON.stringify(restaurantData),
     }
@@ -56,6 +59,7 @@ export async function updateRestaurant(id, restaurantData) {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
+        ...authHeaders(),
       },
       body: JSON.stringify(restaurantData),
     }

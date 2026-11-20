@@ -5,6 +5,9 @@ import MenuItemDetails from "./pages/MenuItemDetails/MenuItemDetails";
 import EditMenuItem from "./pages/EditMenuItem/EditMenuItem";
 import AddMenuItem from "./pages/AddMenuItem/AddMenuItem";
 import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
+import Account from "./pages/Account/Account";
+import { logout } from "./api/auth";
 import CreateRestaurant from "./pages/CreateRestaurant/CreateRestaurant";
 import OwnerDashboard from "./pages/OwnerDashboard/OwnerDashboard";
 import OwnerRestaurantDetails from "./pages/OwnerRestaurantDetails/OwnerRestaurantDetails";
@@ -20,6 +23,10 @@ function App() {
           element={<Login />} 
         />
 
+        <Route path="/register" element={<Register />} />
+
+        <Route path="/account" element={<Account />} />
+
         <Route
           path="/owner/restaurants"
           element={<OwnerDashboard />}
@@ -32,10 +39,12 @@ function App() {
               <Link
                 to="/"
                 className="back-to-login"
-                onClick={() => sessionStorage.removeItem("demoRole")}
+                onClick={logout}
               >
-                ← Back to Login
+                ← Sign out
               </Link>
+              {" · "}
+              <Link to="/account">My Account</Link>
 
               <h1>Administrator Dashboard</h1>
               <p>Administrator functionality coming soon.</p>

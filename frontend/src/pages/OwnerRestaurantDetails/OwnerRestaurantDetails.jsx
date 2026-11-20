@@ -5,11 +5,10 @@ import {
   getRestaurantById,
   updateRestaurant,
 } from "../../api/restaurants";
+import { getCurrentUser } from "../../api/auth";
 import { getMenu } from "../../api/menu";
 import RestaurantForm from "../../components/RestaurantForm/RestaurantForm";
 import "./OwnerRestaurantDetails.css";
-
-const DEMO_OWNER_ID = "development_owner";
 
 function OwnerRestaurantDetails() {
   const { id } = useParams();
@@ -33,9 +32,9 @@ function OwnerRestaurantDetails() {
 
         const data = await getRestaurantById(id);
 
-        if (data.owner_id !== DEMO_OWNER_ID) {
+        if (data.owner_id !== getCurrentUser()?.id) {
           throw new Error(
-            "This restaurant does not belong to the demo owner."
+            "This restaurant does not belong to you."
           );
         }
 
