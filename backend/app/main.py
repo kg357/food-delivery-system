@@ -25,7 +25,7 @@ from app.api.routes.menu import router as menu_router
 from app.api.routes.restaurants import router as restaurant_router
 from app.api.routes.orders import (router as order_router)
 from app.services.cart_service import CartError
-
+from app.api.routes.checkout import router as checkout_router
 
 # ============================================================
 # FastAPI Application
@@ -80,3 +80,4 @@ app.include_router(cart_router)
 app.add_exception_handler(CartError, cart_error_response)
 app.include_router(customer_router)
 app.include_router(auth_router)
+app.include_router(checkout_router)
