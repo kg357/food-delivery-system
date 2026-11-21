@@ -1,10 +1,11 @@
 
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom";
+import LogoutButton from "../../components/LogoutButton/LogoutButton";
 import RestaurantCard from "../../components/RestaurantCard/RestaurantCard"
 import Loading from "../../components/Loading/Loading"
 import { getRestaurants } from "../../api/restaurants"
 import "./RestaurantList.css"
+import { Link } from "react-router-dom";
 
 function RestaurantList() {
     const [restaurants, setRestaurants] = useState([]);
@@ -66,13 +67,23 @@ function RestaurantList() {
 
     return (
         <div className="restaurant-list-container">
-            <Link
-                to="/"
-                className="back-to-login"
-                onClick={() => sessionStorage.removeItem("demoRole")}
-            >
-                ← Back to Login
+
+        <div className="restaurant-page-actions">
+            <Link to="/account" className="back-to-login">
+                My Account
             </Link>
+
+            <Link to="/orders" className="back-to-login">
+                My Orders
+            </Link>
+
+            <Link to="/cart" className="back-to-login">
+                My Cart
+            </Link>
+
+            <LogoutButton />
+        </div>
+
 
             <h1>Restaurants</h1>
 

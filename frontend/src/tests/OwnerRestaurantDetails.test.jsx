@@ -5,13 +5,23 @@ import { MemoryRouter, Routes, Route } from "react-router-dom";
 import { afterEach, expect, test, vi } from "vitest";
 import OwnerRestaurantDetails from "../pages/OwnerRestaurantDetails/OwnerRestaurantDetails";
 
+
+vi.mock("../auth/session", () => ({
+    getSession: () => ({
+        id: "owner1",
+        role: "restaurant_owner",
+        token: "test-token",
+    }),
+}));
+
+
 const restaurant = {
-  id: 4,
-  owner_id: "development_owner",
-  name: "The Golden Fork",
-  cuisine: "Italian",
-  address: "123 Main Street",
-  rating: 0,
+    id: 4,
+    owner_id: "owner1",
+    name: "The Golden Fork",
+    cuisine: "Italian",
+    address: "123 Main Street",
+    rating: 0,
 };
 
 afterEach(() => {
@@ -127,9 +137,9 @@ test("owner cannot edit a restaurant belonging to another owner", async () => {
   );
 
   expect(
-    await screen.findByRole("alert")
+      await screen.findByRole("alert")
   ).toHaveTextContent(
-    "This restaurant does not belong to the demo owner."
+      "You do not have permission to manage this restaurant."
   );
 
   expect(

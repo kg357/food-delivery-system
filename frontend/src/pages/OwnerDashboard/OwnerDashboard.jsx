@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getRestaurants } from "../../api/restaurants";
 import "./OwnerDashboard.css";
-
-const DEMO_OWNER_ID = "development_owner";
+import { getSession } from "../../auth/session";
+import LogoutButton from "../../components/LogoutButton/LogoutButton";
 
 function OwnerDashboard() {
+  const ownerId = getSession()?.id;
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -19,8 +20,8 @@ getRestaurants()
 
     if (active) {
       const ownedRestaurants = data.filter(
-        (restaurant) =>
-          restaurant.owner_id === DEMO_OWNER_ID
+          (restaurant) =>
+              restaurant.owner_id === ownerId
       );
 
       setRestaurants(ownedRestaurants);
@@ -38,13 +39,13 @@ getRestaurants()
     return () => {
       active = false;
     };
-  }, []);
+  }, [ownerId]);
 
   return (
     <main className="owner-page">
       <header className="owner-header">
         <div>
-          <Link to="/">← Back to Login</Link>
+          <LogoutButton />
           <h1>My Restaurants</h1>
           <p>Manage your restaurants and their menus.</p>
         </div>

@@ -3,6 +3,16 @@ import userEvent from "@testing-library/user-event";
 import { beforeEach, afterEach, expect, test, vi } from "vitest";
 import App from "./App";
 
+
+vi.mock("./auth/session", () => ({
+    getSession: () => ({
+        id: "owner1",
+        role: "restaurant_owner",
+        token: "test-token",
+    }),
+}));
+
+
 const menuItem = {
   id: "item-123",
   restaurant_id: 1,
@@ -26,7 +36,11 @@ afterEach(() => {
 });
 
 test("displays menu items from the backend", async () => {
-  window.history.pushState({}, "", "/menu/edit");
+  window.history.pushState(
+      {},
+      "",
+      "/owner/restaurants/1/menu/edit"
+  );
   render(<App />);
 
   expect(await screen.findByText("Cheeseburger")).toBeInTheDocument();
@@ -46,7 +60,11 @@ test("saves an edited menu item using PATCH", async () => {
       json: async () => ({ ...menuItem, price: 14.99 }),
     });
 
-  window.history.pushState({}, "", "/menu/edit");
+  window.history.pushState(
+      {},
+      "",
+      "/owner/restaurants/1/menu/edit"
+  );
   render(<App />);
 
   await screen.findByText("Cheeseburger");

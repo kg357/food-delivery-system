@@ -4,32 +4,43 @@ import { MemoryRouter } from "react-router-dom";
 import { afterEach, expect, test, vi } from "vitest";
 import OwnerDashboard from "../pages/OwnerDashboard/OwnerDashboard";
 
+
+vi.mock("../auth/session", () => ({
+    getSession: () => ({
+        id: "owner1",
+        role: "restaurant_owner",
+        token: "test-token",
+    }),
+}));
+
+
 const restaurants = [
-  {
-    id: 1,
-    owner_id: "owner1",
-    name: "Wasabi Ramen",
-    cuisine: "Japanese",
-    address: "123 Main St",
-    rating: 4.5,
-  },
-  {
-    id: 2,
-    owner_id: "development_owner",
-    name: "The Golden Fork",
-    cuisine: "Italian",
-    address: "456 Main St",
-    rating: 0,
-  },
-  {
-    id: 3,
-    owner_id: "development_owner",
-    name: "Sunrise Cafe",
-    cuisine: "Cafe",
-    address: "789 Main St",
-    rating: 0,
-  },
+    {
+        id: 1,
+        owner_id: "owner2",
+        name: "Wasabi Ramen",
+        cuisine: "Japanese",
+        address: "123 Main St",
+        rating: 4.5,
+    },
+    {
+        id: 2,
+        owner_id: "owner1",
+        name: "The Golden Fork",
+        cuisine: "Italian",
+        address: "456 Main St",
+        rating: 0,
+    },
+    {
+        id: 3,
+        owner_id: "owner1",
+        name: "Sunrise Cafe",
+        cuisine: "Cafe",
+        address: "789 Main St",
+        rating: 0,
+    },
 ];
+
 
 function renderDashboard() {
   return render(
@@ -43,7 +54,7 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-test("displays only restaurants owned by the demo owner", async () => {
+test("displays only restaurants owned by the signed-in owner", async () => {
   vi.stubGlobal(
     "fetch",
     vi.fn().mockResolvedValue({

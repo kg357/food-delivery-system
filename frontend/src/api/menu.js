@@ -1,3 +1,22 @@
+
+import { getSession } from "../auth/session";
+
+function getOwnerHeaders() {
+    const session = getSession();
+
+    if (!session || session.role !== "restaurant_owner") {
+        throw new Error(
+            "You must be signed in as a restaurant owner."
+        );
+    }
+
+    return {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session.token}`,
+    };
+}
+
+
 export async function updateMenuItem(
     restaurantId,
     itemId,
@@ -7,9 +26,7 @@ export async function updateMenuItem(
         `http://localhost:8000/restaurants/${restaurantId}/menu/${itemId}`,
         {
             method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: getOwnerHeaders(),
             body: JSON.stringify(menuItem)
         }
     );
@@ -26,9 +43,7 @@ export async function addMenuItem(restaurantId, menuItem) {
         `http://localhost:8000/restaurants/${restaurantId}/menu`,
         {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: getOwnerHeaders(),
             body: JSON.stringify(menuItem)
         }
     );

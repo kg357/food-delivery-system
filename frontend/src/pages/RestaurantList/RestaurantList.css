@@ -238,3 +238,45 @@
     padding: 32px 18px;
   }
 }
+
+
+/* Logout button */
+
+.logout-button {
+    display: inline-block;
+    margin-bottom: 24px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #9a3412;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    text-decoration: underline;
+}
+
+.logout-button:focus-visible {
+    outline: 2px solid #c05621;
+    outline-offset: 4px;
+    border-radius: 3px;
+}
+
+
+/* Customer navigation actions */
+
+.restaurant-page-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.restaurant-page-actions .back-to-login,
+.restaurant-page-actions .logout-button {
+    margin-bottom: 0;
+}
