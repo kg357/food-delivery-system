@@ -1,5 +1,25 @@
+
+import { getSession } from "../auth/session";
+
 const API_BASE = "http://localhost:8000";
 
+// Get authorization headers for the signed-in owner.
+function getOwnerHeaders() {
+    const session = getSession();
+
+    if (!session || session.role !== "restaurant_owner") {
+        throw new Error(
+            "You must be signed in as a restaurant owner."
+        );
+    }
+
+    return {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session.token}`,
+    };
+}
+
+// Public: retrieve all restaurants.
 export async function getRestaurants() {
     const response = await fetch(
         `${API_BASE}/restaurants`
@@ -12,6 +32,7 @@ export async function getRestaurants() {
     return response.json();
 }
 
+// Public: retrieve restaurant details.
 export async function getRestaurantById(id) {
     const response = await fetch(
         `${API_BASE}/restaurants/${id}`
@@ -24,51 +45,52 @@ export async function getRestaurantById(id) {
     return response.json();
 }
 
+// Owner only: create a restaurant.
 export async function createRestaurant(restaurantData) {
-  const response = await fetch(
-    "http://localhost:8000/restaurants",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(restaurantData),
+    const response = await fetch(
+        `${API_BASE}/restaurants`,
+        {
+            method: "POST",
+            headers: getOwnerHeaders(),
+            body: JSON.stringify(restaurantData),
+        }
+    );
+
+    if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+
+        const message =
+            typeof errorData?.detail === "string"
+                ? errorData.detail
+                : "Failed to create restaurant.";
+
+        throw new Error(message);
     }
-  );
 
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => null);
-    const message =
-      typeof errorData?.detail === "string"
-        ? errorData.detail
-        : "Failed to create restaurant.";
-
-    throw new Error(message);
-  }
-
-  return response.json();
+    return response.json();
 }
 
+// Owner only: update an existing restaurant.
 export async function updateRestaurant(id, restaurantData) {
-  const response = await fetch(
-    `http://localhost:8000/restaurants/${id}`,
-    {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(restaurantData),
-    }
-  );
-
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => null);
-    throw new Error(
-      typeof errorData?.detail === "string"
-        ? errorData.detail
-        : `Failed to update restaurant (${response.status}).`
+    const response = await fetch(
+        `${API_BASE}/restaurants/${id}`,
+        {
+            method: "PATCH",
+            headers: getOwnerHeaders(),
+            body: JSON.stringify(restaurantData),
+        }
     );
-  }
 
-  return response.json();
+    if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+
+        const message =
+            typeof errorData?.detail === "string"
+                ? errorData.detail
+                : `Failed to update restaurant (${response.status}).`;
+
+        throw new Error(message);
+    }
+
+    return response.json();
 }

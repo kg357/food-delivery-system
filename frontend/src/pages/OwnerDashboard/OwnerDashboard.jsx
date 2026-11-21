@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { getRestaurants } from "../../api/restaurants";
 import "./OwnerDashboard.css";
 import { getSession } from "../../auth/session";
+import LogoutButton from "../../components/LogoutButton/LogoutButton";
 
 function OwnerDashboard() {
   const ownerId = getSession()?.id;
@@ -44,7 +45,7 @@ getRestaurants()
     <main className="owner-page">
       <header className="owner-header">
         <div>
-          <Link to="/">← Back to Login</Link>
+          <LogoutButton />
           <h1>My Restaurants</h1>
           <p>Manage your restaurants and their menus.</p>
         </div>

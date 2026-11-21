@@ -58,13 +58,6 @@ function App() {
         </Route>
 
 
-        <Route
-          path="/owner/restaurants/new"
-          element={<CreateRestaurant />}
-        />
-
-
-
         {/* Customer-only routes */}
         <Route
             element={

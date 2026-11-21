@@ -4,6 +4,16 @@ import userEvent from "@testing-library/user-event";
 import AddMenuItem from "../pages/AddMenuItem/AddMenuItem";
 import { MemoryRouter, Routes, Route } from "react-router-dom";
 
+
+vi.mock("../auth/session", () => ({
+    getSession: () => ({
+        id: "owner1",
+        role: "restaurant_owner",
+        token: "test-token",
+    }),
+}));
+
+
 it("adds a menu item", async () => {
     global.fetch = vi.fn().mockResolvedValue({
         ok: true,
@@ -155,10 +165,10 @@ test("owner adds a menu item to the selected restaurant", async () => {
 
   await waitFor(() => {
     expect(mockFetch).toHaveBeenCalledWith(
-      "http://localhost:8000/restaurants/7/menu",
-      expect.objectContaining({
-        method: "POST",
-      })
+        "http://localhost:8000/restaurants/7/menu",
+        expect.objectContaining({
+            method: "POST",
+        })
     );
   });
 

@@ -302,7 +302,7 @@ function Cart() {
                             type="button"
                             className="cart-clear"
                             onClick={handleClear}
-                            disabled={busy}
+                            disabled={busy || checkoutBusy}
                         >
                             Clear Cart
                         </button>

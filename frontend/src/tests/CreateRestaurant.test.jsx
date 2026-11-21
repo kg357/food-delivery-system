@@ -5,6 +5,16 @@ import { MemoryRouter, Routes, Route } from "react-router-dom";
 import { afterEach, expect, test, vi } from "vitest";
 import CreateRestaurant from "../pages/CreateRestaurant/CreateRestaurant";
 
+
+vi.mock("../auth/session", () => ({
+    getSession: () => ({
+        id: "owner1",
+        role: "restaurant_owner",
+        token: "test-token",
+    }),
+}));
+
+
 afterEach(() => {
   vi.unstubAllGlobals();
 });
@@ -14,7 +24,7 @@ test("owner can create a restaurant", async () => {
 
   const mockRestaurant = {
     id: 4,
-    owner_id: "development_owner",
+    owner_id: "owner1",
     name: "The Golden Fork",
     cuisine: "Italian",
     address: "123 Main Street",
@@ -69,7 +79,8 @@ test("owner can create a restaurant", async () => {
       expect.objectContaining({
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer test-token",
         },
         body: JSON.stringify({
           name: "The Golden Fork",
