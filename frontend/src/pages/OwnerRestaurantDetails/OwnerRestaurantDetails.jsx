@@ -8,10 +8,10 @@ import {
 import { getMenu } from "../../api/menu";
 import RestaurantForm from "../../components/RestaurantForm/RestaurantForm";
 import "./OwnerRestaurantDetails.css";
-
-const DEMO_OWNER_ID = "development_owner";
+import { getSession } from "../../auth/session";
 
 function OwnerRestaurantDetails() {
+  const ownerId = getSession()?.id;
   const { id } = useParams();
 
   const [restaurant, setRestaurant] = useState(null);
@@ -33,10 +33,10 @@ function OwnerRestaurantDetails() {
 
         const data = await getRestaurantById(id);
 
-        if (data.owner_id !== DEMO_OWNER_ID) {
-          throw new Error(
-            "This restaurant does not belong to the demo owner."
-          );
+        if (data.owner_id !== ownerId) {
+            throw new Error(
+                "You do not have permission to manage this restaurant."
+            );
         }
 
         if (!active) return;
@@ -60,7 +60,7 @@ function OwnerRestaurantDetails() {
     return () => {
       active = false;
     };
-  }, [id]);
+  }, [id, ownerId]);
 
   async function handleUpdate(data) {
     const updated = await updateRestaurant(id, data);
